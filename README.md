@@ -8,10 +8,12 @@ The computational pipeline consists of the SSR identification tool [MISA](https:
 
 MegaSSR running with two options:
 
+
 > 1: Simple Sequence Repeat identification, classification, and SSR marker design.
 > 
 > 2: Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, and SSR marker design.
 > 
+
 ## #The local standalone version of MegaSSR
 MegaSSR has been tested on Ubuntu 18.04 and 20.04.
 
