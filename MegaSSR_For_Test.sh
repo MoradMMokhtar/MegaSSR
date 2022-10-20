@@ -264,22 +264,21 @@ version()
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs_with_complementary.txt $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs.txt $plotread/Frequency_of_identified_SSR_motifs.txt
               conda activate plots
-              python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/Distribution_of_various_SSR_classes.png 
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/SSR_distribution_considering_sequence_complementary.png
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs.py $plotread/Frequency_of_identified_SSR_motifs.txt $plots/Frequency_of_identified_SSR_motifs.png
-
+              python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/"Distribution of the different SSR classes".png 
+              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/"SSR distribution considering sequence complementarity".png
+              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs.py $plotread/Frequency_of_identified_SSR_motifs.txt $plots/"Frequency of the identified SSR motifs".png
               cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results    
               now8="$(date)"
               printf "\n\n\t$now8 \tDrawing plots Done %s\n\n"
               
               ########################################################
 
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.txt  $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.txt  $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.SSR.primers.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.SSR-primers.csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"The distribution of the different SSR classes".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.txt  $outdir/"$organis_name"-MegaSSR_Results/"Frequency of the identified SSR motifs".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.txt  $outdir/"$organis_name"-MegaSSR_Results/"Frequency of identified SSR motifs considering complementarity".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/"Identified SSR motifs table".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"SSR primer statistics".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/"Desinged SSR primer".csv
               rm -r $plots
               rm -r $plotread
               rm -r $intermediate_File_step_1
@@ -522,33 +521,32 @@ version()
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs_with_complementary.txt $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs.txt $plotread/Frequency_of_identified_SSR_motifs.txt
               conda activate plots
-              python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/Distribution_of_various_SSR_classes.png 
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/SSR_distribution_considering_sequence_complementary.png
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs.py $plotread/Frequency_of_identified_SSR_motifs.txt $plots/Frequency_of_identified_SSR_motifs.png
-              python3 -W ignore $Script/overlab-all-with-Num.py $plotread/overlab-all-with-Num.txt $plots/Shared_reprats_between_genic_and_non-genic_regions.png
-              python3 -W ignore $Script/uniq-genic-with-Num.py $plotread/uniq-genic-with-Num.txt $plots/Unique_repeats_of_the_genic_region.png
-              python3 -W ignore $Script/uniq-intergenic-with-Num.py $plotread/uniq-intergenic-with-Num.txt $plots/Unique_repeats_of_the_non-genic_region.png
-
+              python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/"Distribution of the different SSR classes".png 
+              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/"SSR distribution considering sequence complementarity".png
+              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs.py $plotread/Frequency_of_identified_SSR_motifs.txt $plots/"Frequency of the identified SSR motifs".png
+              python3 -W ignore $Script/overlab-all-with-Num.py $plotread/overlab-all-with-Num.txt $plots/"Common reprate between genic and non-genic regions".png
+              python3 -W ignore $Script/uniq-genic-with-Num.py $plotread/uniq-genic-with-Num.txt $plots/"Unique repeats in the genic region".png
+              python3 -W ignore $Script/uniq-intergenic-with-Num.py $plotread/uniq-intergenic-with-Num.txt $plots/"Unique repeats of the non-genic region".png
               cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results      
               now9="$(date)"
               printf "\n\n\t$now9 \tDrawing plots Done %s\n\n"         
               ########################################################
 
               #rename 's/\.txt/\.csv/' $outdir/"$organis_name"-MegaSSR_Results/*.txt
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Accept_Intergenic_SSR.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Accept_Intergenic_SSR.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.txt  $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.txt  $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genic.primers.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic-primers.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic_SSR_with_feature.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic_SSR_with_feature.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.overlab-all-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.overlab-all-with-Num.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.stat.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-genic-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-genic-with-Num.csv
-              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-intergenic-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-intergenic-with-Num.csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Accept_Intergenic_SSR.txt  $outdir/"$organis_name"-MegaSSR_Results/"non-genic SSR repeats with annotations".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"The distribution of the different SSR classes".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs.txt  $outdir/"$organis_name"-MegaSSR_Results/"Frequency of the identified SSR motifs".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/"$organis_name"_Frequency_of_identified_SSR_motifs_with_complementary.txt  $outdir/"$organis_name"-MegaSSR_Results/"Frequency of identified SSR motifs considering complementarity".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"Genic SSR primer statistics".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/"Desinged genic SSR primer".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Genic_SSR_with_feature.txt  $outdir/"$organis_name"-MegaSSR_Results/"Genic SSR repeats with annotations".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/"Identified SSR motifs table".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"Statistics of non-genic SSR primers".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/"Desinged non-genic SSR primers".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.overlab-all-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/"Motif sequences shared between genic and non-genic regions".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"Summary of identified SSR motifs".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-genic-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/"Reprate sequences Unique to genic regions".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.uniq-intergenic-with-Num.txt  $outdir/"$organis_name"-MegaSSR_Results/"Reprate sequences Unique to non-genic regions".csv
             
               ########################################################
               rm -r $plots
