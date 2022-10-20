@@ -52,11 +52,11 @@ Go to the MegaSSR folder
     bash MegaSSR.sh -A [1 or 2] -F [Genome in FASTA Format] -G [GFF/GFF3 File]
     
     #Required arguments:
-	-A		The analysis type [1 or 2] 
+	-A	The analysis type [1 or 2] 
 	1 (for Simple Sequence Repeat identification, classification, and SSR marker design 'This analysis needs FASTA file only') 
 	2 (for Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, and SSR marker design 'This analysis needs FASTA and GFF files') 	       
-	-F		Your path to the genome sequence (Fasta file). 
-	-G		Your path to the genome annotation (GFF/GFF3 file). Required with argument -A 2 only.
+	-F	Your path to the genome sequence (Fasta file). 
+	-G	Your path to the genome annotation (GFF/GFF3 file). Required with argument -A 2 only.
 	
     #Optional arguments:
 	-P     Outfileprefix, default is results.
