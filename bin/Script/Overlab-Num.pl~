@@ -1,0 +1,32 @@
+# get overlab Num. perl >genic >intergenic
+use strict;
+my $searchfile = $ARGV[0];
+my $searchfor  = $ARGV[1];
+my @parray;
+open( PFILE, "<$searchfile" );
+while (<PFILE>) {
+    chomp();
+    if (/(\S+)\s+(\S+)/) {
+        my $id   = $1;
+        my $rnu   = $2;
+        push( @parray, [ $id, $rnu] );
+    }
+}
+close PFILE;
+open( GFILE, "<$searchfor" );
+# print "\nRepeat_seq\tTotal_Genic\tTotal_Intergenic";
+while (<GFILE>) {
+    chomp();
+    if (/(\S+)\s+(\S+)/) {
+        my $contig  = $1;
+        my $gstart  = $2;
+        for my $i ( 0 .. $#parray ) 
+         {          
+       if($gstart eq $parray[$i][1])    
+                {   
+         print "\n$parray[$i][1]\t$parray[$i][0]\t$contig";
+       }
+         } 
+        }
+    }
+close GFILE;
