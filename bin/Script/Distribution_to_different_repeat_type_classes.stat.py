@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from IPython.display import set_matplotlib_formats
-# set_matplotlib_formats('retina', quality=100)
+set_matplotlib_formats('retina', quality=100)
 import seaborn as sns
 import sys
 input_file=sys.argv[1]
@@ -46,6 +46,7 @@ for bar in bars:
       weight='bold',
       fontsize=16
   )
+  
 # Add labels and a title. Note the use of `labelpad` and `pad` to add some
 # extra space between the text and the tick labels.
 ax.set_xlabel('Repeat Class', labelpad=15,weight='bold' ,fontsize=20,color='#333333')

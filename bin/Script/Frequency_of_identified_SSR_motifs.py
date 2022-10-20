@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from IPython.display import set_matplotlib_formats
-# set_matplotlib_formats('retina', quality=100)
+set_matplotlib_formats('retina', quality=100)
 import seaborn as sns
 import sys
 input_file=sys.argv[1]
@@ -31,12 +31,8 @@ bars = ax.bar(
 )
 plt.xticks(fontsize=14,rotation = 70)
 plt.yticks(fontsize=16)
-plt.annotate('*Only the highest 60 values are shown', xy = (-1, 30), 
-             fontsize = 16, xytext = (45,-35), 
-             color = 'r')
+
 # Axis formatting.
-
-
 ax.margins(0.01, 0.11)  
 ax.tick_params(bottom=False, left=False)
 ax.set_axisbelow(True)
@@ -55,9 +51,14 @@ for bar in bars:
       rotation = 70,
       fontsize=16
   )
+plt.text(0.5, 0.95, '*Only the highest 60 values are shown',
+     horizontalalignment='center',
+     verticalalignment='center',
+     transform = ax.transAxes, 
+             color = 'r' ,fontsize=18)
 # Add labels and a title. Note the use of `labelpad` and `pad` to add some
 # extra space between the text and the tick labels.
 ax.set_xlabel('Repeat', labelpad=15,weight='bold' ,fontsize=20,color='#333333')
 ax.set_ylabel('Count', labelpad=16,weight='bold' ,fontsize=20,color='#333333')
-ax.set_title('Frequency of identified SSR motifs',fontsize=20, pad=15, color='#333333',weight='bold')
+ax.set_title('Distribution of various SSR classes',fontsize=20, pad=15, color='#333333',weight='bold')
 plt.savefig(output_file, bbox_inches='tight')

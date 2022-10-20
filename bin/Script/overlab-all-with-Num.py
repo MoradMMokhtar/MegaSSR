@@ -27,14 +27,16 @@ colors=sns.color_palette()
   # the width of the bars
 
 
+bar1 = ax.bar(x - width/2, df["NO. of the present (Genic)"],
+              width, label='Genic')
+bar2 = ax.bar(x + width/2, df["NO. of the present (Non-genic)"]
+              , width, tick_label=df["Repeat Sequence"], label=' Non Genic')
 
 plt.legend()
 # Axis formatting.
 plt.xticks(fontsize=14,rotation = 70)
 plt.yticks(fontsize=16)
-plt.annotate('*Only the highest 60 values are shown', xy = (1, 0), 
-             fontsize = 16, xytext = (40,-22), 
-             color = 'r')
+
 ax.margins(0.01, 0.11)  
 ax.tick_params(bottom=False, left=False)
 ax.set_axisbelow(True)
@@ -47,7 +49,7 @@ for bar in bar1:
       bar.get_height() + 1,
       round(bar.get_height(),1),
       horizontalalignment='center',
-      
+      color='b'
   )
 for bar in bar2:
     ax.text(
@@ -55,22 +57,20 @@ for bar in bar2:
       bar.get_height() + 1,
       round(bar.get_height(),1),
       horizontalalignment='center',
-      # fontsize=10,
-      
+      fontsize=10,
+      color='b',
      
   )
-bar1 = ax.bar(x - width/2, df["NO. of the present (Genic)"],
-              width, label='Genic')
-bar2 = ax.bar(x + width/2, df["NO. of the present (Non-genic)"]
-              , width, tick_label=df["Repeat Sequence"], label=' Non Genic')
+plt.text(0.5, 0.95, '*Only the highest 60 values are shown',
+     horizontalalignment='center',
+     verticalalignment='center',
+     transform = ax.transAxes, 
+             color = 'r' ,fontsize=18)
 
-# ax.bar_label(bar1)
-# ax.bar_label(bar2)
-
-# Add labels and a title. Note the use of `labelpad` and `pad` to add some , padding=3
+# Add labels and a title. Note the use of `labelpad` and `pad` to add some
 # extra space between the text and the tick labels.
 ax.set_xlabel('Repeat', labelpad=15,weight='bold' ,fontsize=20,color='#333333')
 ax.set_ylabel('Count', labelpad=16,weight='bold' ,fontsize=20,color='#333333')
-ax.set_title('Shared reprats between genic and non-genic regions',fontsize=20, pad=15, color='#333333',weight='bold')
+ax.set_title('Distribution of various SSR classes',fontsize=20, pad=15, color='#333333',weight='bold')
 
 plt.savefig(output_file, bbox_inches='tight')
