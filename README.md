@@ -84,7 +84,7 @@ Go to the MegaSSR folder
 
 ### Output files
 We have collected the main output files in the Results folder in the main output directory. The results are presented in the form of tables and images as follows:
-#
+
 | # |File name  |Option 1  |Option 2  |
 |--|--|--|--|
 |1  |Identified SSR motifs table.csv  |&#10003;  |&#10003;  |
