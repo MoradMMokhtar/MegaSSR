@@ -33,6 +33,7 @@ The installation require conda. You can install all dependencies for running Meg
 
 3- Create the MegaSSR environment with all dependencies   
 >`conda env create -f MegaSSR.yml`
+
 >`conda env create -f plots.yml`
 
 ### Required data
