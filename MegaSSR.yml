@@ -74,7 +74,7 @@ dependencies:
   - perl-xml-xpathengine=0.14=pl5321hdfd78af_3
   - perl-yaml=1.30=pl5321hdfd78af_0
   - pip=22.3=pyhd8ed1ab_0
-  - primer3-py=0.6.1=py310h1425a21_1
+  - primer3=2.6.1=pl5321h87f3376_2
   - python=3.10.6=ha86cf86_0_cpython
   - python_abi=3.10=2_cp310
   - readline=8.1.2=h0f457ee_0
@@ -84,4 +84,7 @@ dependencies:
   - wheel=0.37.1=pyhd8ed1ab_0
   - xz=5.2.6=h166bdaf_0
   - zlib=1.2.13=h166bdaf_4
-prefix: /home/user_name/anaconda3/envs/MegaSSR
+  - pip:
+    - primer3-py==0.6.1
+prefix: /home/morad/anaconda3/envs/MegaSSR
+

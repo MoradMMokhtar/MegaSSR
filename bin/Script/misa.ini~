@@ -1,2 +1,0 @@
-definition(unit_size,min_repeats):          1-10 2-6 3-5 4-4 5-3 6-3 
-interruptions(max_difference_between_2_SSRs):        100

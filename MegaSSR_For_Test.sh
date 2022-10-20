@@ -37,7 +37,7 @@ Help()
    # Display Help
    echo "MegaSSR is a pipeline designed for high-throughput Simple Sequence Repeat (SSR) identification, classification, gene-based annotation, motif comparison, and SSR marker design for any target genome (including Plantae, Protozoa, Animalia, Chromista, Fungi, Archaea, and Bacteria)."
    echo
-   echo "     MegaSSR v1.06."
+   echo "     MegaSSR v1.2.0"
    echo
    echo "     Options:"
    echo "     -h     Print this Help."
@@ -63,7 +63,7 @@ Help()
 }
 version()
 {
-   echo "MegaSSR v1.06."
+   echo "MegaSSR v1.2.0"
    echo
    exit
 }
@@ -106,7 +106,7 @@ version()
        conda activate MegaSSR
        now="$(date)" 
        echo
-       printf "\t#############################################\n\t##############  MegaSSR v1.06  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Rachid El Fermi, Alsamman M. Alsamman, Achraf El Allali\n\n"
+       printf "\t#############################################\n\t##############  MegaSSR v1.2.0  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Rachid El Fermi, Alsamman M. Alsamman, Achraf El Allali\n\n"
        printf "\t$now \t Start time %s\n"  ### print current date
        echo
        printf "\tParameters: -A $Analysistype -F $Fasta -G $Gff -P $organis_name -1 $mono -2 $di -3 $tri -4 $tetra -5 $penta -6 $hexa -C $compound -s $Min -O $opt -S $max -R $range\n\n"

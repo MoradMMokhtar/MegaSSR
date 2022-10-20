@@ -60,5 +60,5 @@ plt.text(0.5, 0.95, '*Only the highest 60 values are shown',
 # extra space between the text and the tick labels.
 ax.set_xlabel('Repeat', labelpad=15,weight='bold' ,fontsize=20,color='#333333')
 ax.set_ylabel('Count', labelpad=16,weight='bold' ,fontsize=20,color='#333333')
-ax.set_title('Distribution of various SSR classes',fontsize=20, pad=15, color='#333333',weight='bold')
+ax.set_title('SSR distribution considering sequence complementary',fontsize=20, pad=15, color='#333333',weight='bold')
 plt.savefig(output_file, bbox_inches='tight')
