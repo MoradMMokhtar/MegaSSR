@@ -115,14 +115,19 @@ We have collected the main output files in the Results folder in the main output
  
  - Distribution of the different SSR classes
  ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_various_SSR_classes.png)
+
  - SSR distribution considering sequence complementarity
 ![SSR distribution considering sequence complementarity](https://bioinformatics.um6p.ma/MegaSSR/images/SSR_distribution_considering_sequence_complementary.png)
+
  - Frequency of the identified SSR motifs
 ![Frequency of the identified SSR motifs](https://bioinformatics.um6p.ma/MegaSSR/images/Frequency_of_identified_SSR_motifs.png)
+
  - Common reprate between genic and non-genic regions
 ![Common reprate between genic and non-genic regions](https://bioinformatics.um6p.ma/MegaSSR/images/Shared_reprats_between_genic_and_non-genic_regions.png)
+
  - Unique repeats in the genic region
 ![Unique repeats in the genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_of_the_genic_region.png)
+
  - Unique repeats of the non-genic region
 ![Unique repeats of the non-genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_of_the_non-genic_region.png)
 #
