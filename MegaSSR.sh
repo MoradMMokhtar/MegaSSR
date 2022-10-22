@@ -100,7 +100,7 @@ version()
        sequence_acc=$organis_name
        outdir= mkdir -p $userpath/Results/$organis_name
        outdir=$userpath/Results/$organis_name
-
+       conda activate MegaSSR
        now="$(date)" 
        echo
        printf "\t#############################################\n\t##############  MegaSSR v1.2.0  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Rachid El Fermi, Alsamman M. Alsamman, Achraf El Allali\n\n"
@@ -113,24 +113,20 @@ version()
               printf "\tParameters -A and -F is required, use [bash MegaSSR.sh -help] for more detalis\n"
               exit
        fi
-       #conda activate uncompres
 
        if [[ $Fasta =~ \.gz$ ]]; then
               cd $outdir
               echo
               printf "\tCheck the FASTA File format.\n"
               gunzip -c "$Fasta" >$outdir/"$sequence_acc"_genomic.fa
-              conda activate MegaSSR
               perl $Script/checkfasta.pl $outdir/"$sequence_acc"_genomic.fa ### Check the FASTA File format
               elif [[ $Fasta =~ \.zip$ ]]; then
               echo
               printf "\tCheck the FASTA File format.\n"
               gunzip -c "$Fasta" >$outdir/"$sequence_acc"_genomic.fa
-              conda activate MegaSSR
               perl $Script/checkfasta.pl $outdir/"$sequence_acc"_genomic.fa ### Check the FASTA File format
               elif ([ $(stat -c%s "$Fasta") -gt 500 ]); then
               printf "\tCheck the FASTA File format.\n"
-              conda activate MegaSSR
               perl $Script/checkfasta.pl $Fasta ### Check the FASTA File format
               cp $Fasta $outdir/"$sequence_acc"_genomic.fa #### copy fasta file tRNA files
               else
@@ -157,7 +153,6 @@ version()
               cp $Gff $outdir/$sequence_acc.gff #### copy gff file
        fi
        ###############################################################
-       conda activate MegaSSR
 
        intermediate_File_step_1= mkdir -p $outdir/intermediate_Files_step_1
        intermediate_File_step_1=$outdir/intermediate_Files_step_1
@@ -245,7 +240,6 @@ version()
               perl $outdir/modified_p3_in.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta
               ############################primer-design##############################
 
-              conda activate primer3_core
               primer3_core < $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.p3in >$intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.p3out
               perl $Script/modified_p3_out-intergenic.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.p3out
               sed -i 's/=/\t/g' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.results
@@ -467,8 +461,6 @@ version()
               perl $Script/extractseq-id-start-end-intergenic.pl $outdir/"$sequence_acc"_genomic.fa $sql/$organis_name.Accept_Intergenic_SSR.txt $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta
 
                ############################primer-design##############################
-
-              conda activate primer3_core
 
               perl $outdir/modified_p3_in.pl $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta
                                                                       #primer-design
