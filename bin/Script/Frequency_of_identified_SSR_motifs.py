@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
 # plots Distribution of various SSR classes
-#author rachid elfermi
-#contact rachid.elfermi@gmail.com
-# version 1.0
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

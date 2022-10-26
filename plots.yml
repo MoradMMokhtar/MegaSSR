@@ -72,8 +72,6 @@ dependencies:
   - nspr=4.33=h295c915_0
   - nss=3.74=h0370c37_0
   - numexpr=2.8.3=py310hcea2de6_0
-  - numpy=1.23.1=py310h1794996_0
-  - numpy-base=1.23.1=py310hcba007f_0
   - openssl=1.1.1q=h7f8727e_0
   - packaging=21.3=pyhd3eb1b0_0
   - pandas=1.4.3=py310h6a678d5_0
@@ -115,5 +113,7 @@ dependencies:
   - zlib=1.2.12=h7f8727e_2
   - zstd=1.5.2=ha4553b6_0
   - pip:
+    - matplotlib-venn==0.11.7
+    - numpy==1.22.4
     - pyqt5-sip==12.11.0
-prefix: /home/user_name/anaconda3/envs/plots
+prefix: /home/alsamman/anaconda3/envs/plots

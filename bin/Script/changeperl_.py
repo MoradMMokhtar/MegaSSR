@@ -10,6 +10,7 @@ data = """ #!/usr/bin/perl -w
 # Program name: primer3_in.pl
 # Description: creates a PRIMER3 input file based on SSR search results
 my $filename = $ARGV[0];
+if (-s $filename) {
 open (SRC,"<$filename");
 open (OUT,">$filename.p3in");
 
@@ -26,7 +27,7 @@ while (<SRC>)
     print OUT "PRIMER_PRODUCT_SIZE_RANGE="""+range+"""\\n";
     print OUT "SEQUENCE_TARGET=195,100\\n";
     print OUT "PRIMER_OPT_SIZE="""+opt+"""\\nPRIMER_MIN_SIZE="""+min+"""\\nPRIMER_MAX_SIZE="""+max+"""\\n=\\n";
-  };"""
-
+  };
+};"""
 with open(f'{path}/modified_p3_in.pl','w') as file: 
 	file.write(data)

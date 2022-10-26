@@ -31,7 +31,7 @@ while (<PFILE>) {
  
          my $rend29   = $rend9+$rend19;
          my $rend30   = $rend29+$rend21;
-         print "\t$id\t$rnu\t$rtyp\t$rseq\t$rsiz\t$rstart\t$rend\t$rend8\t$rend29\t$rend30\t$rend11\t$rend12\t$rend13\t$rend14\t$rend15\t$rend16\t$rend17\t$rend18\t$rend21\t$rend18\n";
+         print "\t$id\t$rnu\t$rtyp\t$rseq\t$rsiz\t$rstart\t$rend29\t$rend30\t$rend11\t$rend12\t$rend13\t$rend14\t$rend15\t$rend16\t$rend17\t$rend18\t$rend21\t$rend18\n";
        }
          } 
 close GFILE;
