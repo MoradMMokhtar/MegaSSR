@@ -33,10 +33,21 @@ The installation require conda. You can install all dependencies for running Meg
 2- Go to the MegaSSR folder 
 >`cd MegaSSR ` 
 
-3- Create the MegaSSR environment with all dependencies   
+3- Create the MegaSSR environment with dependencies   
 >`conda env create -f MegaSSR.yml`
 
->`conda env create -f plots.yml`
+3- Create the plots2 environment
+>`conda create -n plots2`
+
+>`conda activate plots2`
+
+>`conda install -c conda-forge matplotlib-venn`
+
+>`conda install -c conda-forge pandas`
+
+>`conda install -c conda-forge ipython`
+
+>`conda install -c conda-forge seaborn`
 
 ### Required data
 
