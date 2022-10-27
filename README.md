@@ -4,14 +4,14 @@
 
 MegaSSR is a robust online server that identifies Simple Sequence Repeats (SSR) and enables the design of SSR markers in high-throughput data. MegaSSR perfectly matches any target genome (including Plantae, Protozoa, Animalia, Chromista, Fungi, Archaea, and Bacteria). The pipeline is freely available at [https://bioinformatics.um6p.ma/MegaSSR](https://bioinformatics.um6p.ma/MegaSSR) and [github repository](https://github.com/MoradMMokhtar/MegaSSR). 
 
-The computational pipeline consists of the SSR identification tool [MISA](https://academic.oup.com/bioinformatics/article/33/16/2583/3111841) and [Primer3](https://academic.oup.com/nar/article/40/15/e115/1223759) for design PCR primers . Other processes, such as SSR classification, annotation, and motif comparisons, were performed using custom scripts written in various programming languages such as [Perl](https://www.perl.org/), [Python](https://www.python.org/), and [shell script](https://www.shellscript.sh/).
+The computational pipeline consists of the SSR identification tool MISA, Primer3 for PCR primer design, Primersearch (EMBOSS) for in silico validation of designed SSR primers, and Bandwagon for in silico gel visualization. Other processes, such as SSR classification, annotation, and motif comparisons, were performed using custom scripts written in various programming languages such as [Perl](https://www.perl.org/), [Python](https://www.python.org/), and [shell script](https://www.shellscript.sh/).
 
 MegaSSR running with two options:
 
 
-> 1: Simple Sequence Repeat identification, classification, and SSR marker design.
+> 1: Simple Sequence Repeat identification, classification, SSR marker design, in silico validation of the designed SSR primers, and gel visualization.
 > 
-> 2: Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, and SSR marker design.
+> 2: Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, SSR marker design, in silico validation of the designed SSR primers, and gel visualization.
 > 
 
 ## #The local standalone version of MegaSSR
@@ -74,15 +74,18 @@ Go to the MegaSSR folder
 	-O     Optimal primer length, default is 18, default is 20
 	-R     PCR product size range, default is 100-500]
 	-v     Print MegaSSR version and exit
+	-B     Calculate the number of alleles for each SSR primer and plot the migration patterns of the DNA bands [yes|no], default is no"   
+	-L     The maximum length by base pair for allele search, default value is 1000"   
+	-I     The maximum number of primers in each image. Note that only primers with more than one band are drawn. The default value is 50"
 	-h     Print this Help
     
-    Default parameters:bash MegaSSR.sh -A 2 -F /path/to/genome_fasta_file  -G /path/to/gff_file -P results -1 20 -2 10 -3 9 -4 5 -5 4 -6 4 -C 100 -s 18 -O 20 -S 22 -R 100-500
+    Default parameters:bash MegaSSR.sh -A 2 -F /path/to/genome_fasta_file  -G /path/to/gff_file -P results -1 20 -2 10 -3 9 -4 5 -5 4 -6 4 -C 100 -s 18 -O 20 -S 22 -R 100-500 -B no -t 4 -L 1000 -I 50
  
 
 
 ### Run Example
 
-    bash MegaSSR_For_Test.sh -A 2 -G NC_003070.9_Arabidopsis_thaliana.gff.zip -F NC_003070.9_Arabidopsis_thaliana.fna.zip -P test -1 20 -2 10 -3 9 -4 5 -5 4 -6 4 -C 100 -s 18 -O 20 -S 22 -R 100-500
+    bash MegaSSR_For_Test.sh -A 2 -G NC_003070.9_Arabidopsis_thaliana.gff.zip -F NC_003070.9_Arabidopsis_thaliana.fna.zip -P test -1 20 -2 10 -3 9 -4 5 -5 4 -6 4 -C 100 -s 18 -O 20 -S 22 -R 100-500 -B no -t 4 -L 1000 -I 50
 
 ### Output files
 We have collected the main output files in the Results folder in the main output directory. The results are presented in the form of tables and images as follows:
@@ -111,10 +114,19 @@ We have collected the main output files in the Results folder in the main output
 | 20 |Unique repeats of the non-genic region.png  |&#88;   |&#10003;  |
 | 21 | Distribution of the different SSR classes.png |&#10003;  |&#10003;  |
 | 22 | Frequency of the identified SSR motifs.png |&#10003;  |&#10003;  |
+| 23 | x_insilco_gel.jpg |&#10003;  |&#10003;  |
+| 24 | Venn diagram of genic and non-genic SSR.png |&#88;  |&#10003;  |
+| 25 | SSR primer alleles.csv |&#10003;  |&#10003;  |
 
  #
  ### Output files example (images)
  
+ - In silico gel visualization
+ ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/images/3_insilco_gel.jpg)
+
+- Venn diagram of identified genic and non-genic SSR
+ ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/images/Venn_diagram_of_genic_and_non-genic_SSR.png)
+
  - Distribution of the different SSR classes
  ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_various_SSR_classes.png)
 
