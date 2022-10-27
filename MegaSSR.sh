@@ -190,15 +190,13 @@ version()
        gdesignprimerresults=$outdir/gdesignprimerresults
 
        ###############################################################
-: <<'END'
-END
-       python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
+      python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
        cd $FASTA
        faidx --split-files $outdir/"$sequence_acc"_genomic.fa
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
 
-       if [ $Analysistype -eq 3 ] # #####  General-SSR #########
+       if [ $Analysistype -eq 1 ] # #####  General-SSR #########
               then
               ##{ Identifying SSR MISA
               now2="$(date)"
@@ -207,7 +205,6 @@ END
               python3 $Script/MISA_threads.py $FASTA $threads $Script/misa.pl $outdir
               # move MISA file result to intermediate_File
               cp $FASTA/all_results.misa $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa # move MISA file result to intermediate_File
-              #delete #cat $FASTA/*.fa.misa >$intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa # move MISA file result to intermediate_File
               awk -F'\t' -v org=$organis_name '{ print 'org'"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7 }'  $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa > $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa.txt
               awk -F'\t' -v org=$organis_name '{ print "\t"'org'"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7 }'  $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa > $sql/$organis_name.genomic.fa.misa.txt
               sed -i 's/\tp1\t/\tMono\t/g'  $sql/$organis_name.genomic.fa.misa.txt
@@ -307,7 +304,6 @@ END
 
               perl $Script/modified_p3_out-intergenic.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.p3out
               sed -i 's/=/\t/g' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.results
-              
               perl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.results >$intermediate_File_step_1/$organis_name.interGenic-primers3.txt           
 
               awk '!seen[$9]++' $intermediate_File_step_1/$organis_name.interGenic-primers3.txt > $intermediate_File_step_1/$organis_name.interGenic-primers3_2.txt
@@ -315,7 +311,6 @@ END
               wc -l $sql/$organis_name.interGenic-primers.txt >$intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat
               sed -i 's/\s/\t/g' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat
               awk -F "\t" -v txt="No. of desinged SSR primers" -v org=$organis_name '{print "\t"'org'"\t"'txt'"\t"$1}' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat >$sql/$organis_name.intergenic.primers.stat.txt
-
               now7="$(date)"
               printf "\n\n\t$now7 \tDesign SSR primers Done%s\n\n"
                      
@@ -329,7 +324,6 @@ END
               cut -f2- $outdir/"$organis_name"-MegaSSR_Results/*Distribution_to_different_repeat_type_classes.stat.txt > $plotread/Distribution_to_different_repeat_type_classes.stat.txt
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs_with_complementary.txt $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt
               cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs.txt $plotread/Frequency_of_identified_SSR_motifs.txt
-
               conda activate plots2
               python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/"Distribution of the different SSR classes".png 
               python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/"SSR distribution considering sequence complementarity".png
@@ -346,7 +340,6 @@ END
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/"Identified SSR motifs table".csv
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"SSR primer statistics".csv
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/"Desinged SSR primer".csv
-
               awk -F "\t" '{print $2"_"$4"\t"$10"\t"$14}' $sql/"Desinged SSR primer.csv" >$intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch
               sed -i '1d' $intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch
               cp $intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch  $intermediate_File_step_1/$organis_name.primers.forprimersearch
@@ -357,7 +350,6 @@ END
 
        if [ $Analysistype -eq 2 ] # #####  genic-SSR #########
               then
-
               awk -F'\t' '$3~/gene/' $outdir/$sequence_acc.gff > $intermediate_File_step_1/$organis_name.fet2
               awk -F'\t' -v org=$organis_name '{ print 'org'"\t"$1"\t"$3"\t"$4"\t"$5"\t"$7"\t"$9 }'  $intermediate_File_step_1/$organis_name.fet2 > $intermediate_File_step_1/$organis_name.fet2_2
               sed  's/;/\t/g' $intermediate_File_step_1/$organis_name.fet2 > $intermediate_File_step_1/$organis_name.fet1
@@ -563,7 +555,6 @@ END
               wc -l $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results.txt >$intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat
               sed -i 's/\s/\t/g' $intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat
               awk -F "\t" -v txt="No. of desinged SSR primers" -v org=$organis_name '{print "\t"'org'"\t"'txt'"\t"$1}' $intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat >$sql/$organis_name.genic.primers.stat.txt
-
               sed -i 's/\tp1\t/\tMono\t/g'  $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results.txt
               sed -i 's/\tp2\t/\tDi\t/g'  $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results.txt
               sed -i 's/\tp3\t/\tTri\t/g'  $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results.txt
@@ -583,7 +574,6 @@ END
 
               perl $Script/modified_p3_out-intergenic.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.p3out
               sed -i 's/=/\t/g' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.results
-
               perl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.results >$intermediate_File_step_1/$organis_name.interGenic-primers3.txt
               awk '!seen[$9]++' $intermediate_File_step_1/$organis_name.interGenic-primers3.txt > $intermediate_File_step_1/$organis_name.interGenic-primers3_2.txt
               awk '!seen[$13]++' $intermediate_File_step_1/$organis_name.interGenic-primers3_2.txt > $sql/$organis_name.interGenic-primers.txt
@@ -673,6 +663,7 @@ END
               printf "\t$now12 \t Drawing SSR alleles started %s\n"
               python3 $Script/plot_gel.py $intermediate_File_step_1/gel.txt2 "             In-silico validation of MegaSSR results"  $max_allele_length $primer_image $sql/insilco_gel.jpg $intermediate_File_step_1/alleles.txt #2>/dev/null #update it
               perl $Script/For_allele.pl  $intermediate_File_step_1/primersearch.results.txt2 $intermediate_File_step_1/$organis_name.primers.forprimersearch >$sql/"SSR primer with alleles.csv"
+       
        fi
               mv $sql/* $outdir              
               rm -rf $designprimerresults
