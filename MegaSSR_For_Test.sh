@@ -647,6 +647,7 @@ version()
               ########################################################
        if ([ $Analysistype -eq 1 ] || [ $Analysistype -eq 2 ] && [ $alleles = yes ] ) ### In-silico validation of MegaSSR results #########
               then
+              conda activate MegaSSR
               now11="$(date)"
               printf "\t$now11 \tCounting SSR alleles started. Note: This step takes a long time. %s\n"
 
