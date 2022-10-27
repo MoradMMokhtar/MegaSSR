@@ -15,22 +15,21 @@ while (<PFILE>) {
 }
 close PFILE;
 open (GFILE,"<$searchfor");
+print "Primer Id\tForward Primer\tReverse Primer\tNumber of alleles\tAllele Id\tHit Sequence Id\tPrimer Start within Sequence\tPrimer end\tForward Primer Mismatch\tReverse Primer Mismatch\tAllele Length\n";
 while (<GFILE>) {
     chomp();
-    if (/\t(\S+)\t(\S+)\t(\S+)\t([\S|\s]+)/) {
+    if (/(\S+)\t([\S|\s]+)/) {
         my $contig  = $1;
         my $gstart  = $2;
-        my $gend    = $3;
-        my $product = $4;
-        my $newid= $contig."_".$gend;
+        # my $newid= $contig."_".$gend;
 
 # print "$newid\t$contig\t$gstart\t$gend\t$product\n";
         for my $i ( 0 .. $#parray ) {
 
-      if($newid eq $parray[$i][1])
+      if($contig eq $parray[$i][1])
          {          
 
-         print "\t$contig\t$gstart\t$gend\t$product\t$parray[$i][0]\t$parray[$i][2]\n";
+         print "$contig\t$gstart\t$parray[$i][0]\t$parray[$i][2]\n";
        }
         }
 

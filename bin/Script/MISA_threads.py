@@ -4,7 +4,7 @@ import sys
 
 path=sys.argv[1]
 nprocess=sys.argv[2]
-LTRFINDER=sys.argv[3]
+MISA=sys.argv[3]
 outdir=sys.argv[4]
 
 # set number of CPUs to run on
@@ -24,8 +24,7 @@ from multiprocessing import Pool
 def f(fname):
      
     #Function is bieng executed
-    os.system(f"perl {LTRFINDER} {fname} {outdir}")
-    #os.system(f"bash threads.sh {x} LTRFINDER")
+    os.system(f"perl {MISA} {fname} {outdir} && cat {path}/{fname}.misa >> {path}/all_results.misa && rm {path}/{fname}.misa")
     
 
 # set a number of processes to use ncore each ### with work as for
