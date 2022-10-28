@@ -190,7 +190,7 @@ version()
        gdesignprimerresults=$outdir/gdesignprimerresults
 
        ###############################################################
-      python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
+       python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
        cd $FASTA
        faidx --split-files $outdir/"$sequence_acc"_genomic.fa
@@ -340,10 +340,17 @@ version()
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.genomic.fa.misa.txt  $outdir/"$organis_name"-MegaSSR_Results/"Identified SSR motifs table".csv
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.intergenic.primers.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"SSR primer statistics".csv
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.interGenic-primers.txt  $outdir/"$organis_name"-MegaSSR_Results/"Desinged SSR primer".csv
+              mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"Summary of identified SSR motifs".csv
+              
               awk -F "\t" '{print $2"_"$4"\t"$10"\t"$14}' $sql/"Desinged SSR primer.csv" >$intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch
               sed -i '1d' $intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch
               cp $intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch  $intermediate_File_step_1/$organis_name.primers.forprimersearch
-
+              rm -rf $gdesignprimer
+              rm -rf $gdesignprimerresults
+              rm $outdir/$sequence_acc.gff
+              rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt2
+              rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.txt
+              rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Accept_Intergenic_SSR.txt
        fi
  
               ########################################################
@@ -639,6 +646,10 @@ version()
               cat $intermediate_File_step_1/$organis_name.nongenic.txtsearch $intermediate_File_step_1/$organis_name.genic.txtsearch >$intermediate_File_step_1/$organis_name.primers.forprimersearch
               rm -rf $gdesignprimerresults
               rm -rf $gdesignprimer
+              rm $outdir/$sequence_acc.gff
+              rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt2
+              rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.txt
+
        fi
 
               ########################################################
@@ -675,6 +686,7 @@ version()
               rm -rf $intermediate_File_step_1
               rm -rf $plots
               rm -rf $plotread
+              rm $outdir/"$organis_name"_genomic.fa.fai
               rm $outdir/"$sequence_acc"_genomic.fa
               rm $outdir/$sequence_acc.gff
               rm -rf $sql
