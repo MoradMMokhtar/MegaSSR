@@ -36,7 +36,7 @@ The installation require conda. You can install all dependencies for running Meg
 3- Create the MegaSSR environment with dependencies   
 >`conda env create -f MegaSSR.yml`
 
-3- Create the plots2 environment
+4- Create the plots2 environment
 >`conda create -n plots2`
 
 >`conda activate plots2`
