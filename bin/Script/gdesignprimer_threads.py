@@ -12,9 +12,6 @@ modified_p3=sys.argv[6]
 # set number of CPUs to run on
 ncore = f"{nprocess}"
 # ncore = "4"
-
-# set env variables
-# have to set these before importing numpy
 os.environ["OMP_NUM_THREADS"] = ncore
 os.environ["OPENBLAS_NUM_THREADS"] = ncore
 os.environ["MKL_NUM_THREADS"] = ncore
@@ -31,6 +28,7 @@ def f(fname):
     name2=fname.split('/')[-1]
     os.system(f"perl {extractseq} {FASTA} {fname} {outdir}/{fastabase}.{name2}")
     os.system(f"perl {modified_p3} {outdir}/{fastabase}.{name2}")
+
 # set a number of processes to use ncore each ### with work as for
-with Pool(int(ncore)) as p:
+with Pool(int(nprocess)) as p:
     results  = p.map(f, data)

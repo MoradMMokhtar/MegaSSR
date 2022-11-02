@@ -16,8 +16,6 @@ intermediate_File_step_1=sys.argv[9]
 # set number of CPUs to run on
 ncore = f"{nprocess}"
 # ncore = "4"
-# set env variables
-# have to set these before importing numpy
 os.environ["OMP_NUM_THREADS"] = ncore
 os.environ["OPENBLAS_NUM_THREADS"] = ncore
 os.environ["MKL_NUM_THREADS"] = ncore
@@ -31,7 +29,7 @@ from multiprocessing import Pool
 def f(fname):
     fastabase=fname.split('/')[-1].replace('.p3in','')  
     #Function is bieng executed
-    os.system(f"primer3_core < {outdir}/{fastabase}.p3in > {outdir}/{fastabase}.p3out && perl {modified_p3_genic} {outdir}/{fastabase}.p3out && sed -i 's/==/\t/g' {outdir}/{fastabase}.results && perl {primers_line_genic} {outdir}/{fastabase}.results > {outdir}/{fastabase}.results2 && cat {outdir}/{fastabase}.results2 >> {intermediate_File_step_1}/{organis_name}.Extract-Genic-seq-out.fasta.results2.txt && rm {outdir}/{fastabase}.results2 {outdir}/{fastabase}.results {outdir}/{fastabase}.p3out {outdir}/{fastabase}.p3in {outdir}/{fastabase} {outdir}/{fastabase}.stat")
+    os.system(f"primer3_core < {outdir}/{fastabase}.p3in > {outdir}/{fastabase}.p3out && perl {modified_p3_genic} {outdir}/{fastabase}.p3out && sed -i 's/==/\t/g' {outdir}/{fastabase}.results && perl {primers_line_genic} {outdir}/{fastabase}.results > {outdir}/{fastabase}.results2 && cat {outdir}/{fastabase}.results2 >> {intermediate_File_step_1}/{organis_name}.Extract-Genic-seq-out.fasta.results2.txt && rm {outdir}/{fastabase}.results2 {outdir}/{fastabase}.results {outdir}/{fastabase}.p3out {outdir}/{fastabase}.p3in {outdir}/{fastabase}")
 
 # set a number of processes to use ncore each ### with work as for
 with Pool(int(nprocess)) as p:

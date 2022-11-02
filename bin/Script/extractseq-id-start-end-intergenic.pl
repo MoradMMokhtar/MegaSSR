@@ -51,7 +51,7 @@ my $rend = $et-200;
 
  my $seqout=substr ($seqobj->seq(),$st,($et-$st));
  my $seqoutseq = Bio::Seq->new(-seq=>$seqout, -format => 'fasta');
-  $seqoutseq->display_id(  $seqobj->display_id() ."=$pm=$sm=$sm1=$sm2=$sm3=$rstat=$rend=$st=$et" );
+  $seqoutseq->display_id(  $seqobj->display_id() ."==$pm==$sm==$sm1==$sm2==$sm3==$rstat==$rend==$st==$et" );
 my $writefile = Bio::SeqIO->new(-id=>"$result",-file => ">>$result", -format => "fasta");
 $writefile->write_seq($seqoutseq);
 }

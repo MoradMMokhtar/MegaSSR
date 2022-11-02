@@ -36,18 +36,6 @@ The installation require conda. You can install all dependencies for running Meg
 3- Create the MegaSSR environment with dependencies   
 >`conda env create -f MegaSSR.yml`
 
-3- Create the plots2 environment
->`conda create -n plots2`
-
->`conda activate plots2`
-
->`conda install -c conda-forge matplotlib-venn`
-
->`conda install -c conda-forge pandas`
-
->`conda install -c conda-forge ipython`
-
->`conda install -c conda-forge seaborn`
 
 ### Required data
 
@@ -130,7 +118,7 @@ We have collected the main output files in the Results folder in the main output
 | 25 | SSR primer alleles.csv |&#10003;  |&#10003;  |
 
  #
- ### Output files example (images)
+ ### Example of output images. Note: The output files are located in the folder Example_results
  
  - In silico gel visualization
  ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/images/3_insilco_gel.jpg)

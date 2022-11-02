@@ -2,6 +2,8 @@
 # Author: Thomas Thiel
 # Program name: prim_output.pl
 # Description: converts the Primer3 output into an table
+use warnings;
+no warnings 'uninitialized';
 
 open (SRC,"<$ARGV[0]") || die ("\nError: Couldn't open Primer3 results file (*.p3out) !\n\n");
 my $filename = $ARGV[0];
