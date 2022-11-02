@@ -2,7 +2,7 @@
 
 # # MegaSSR
 
-MegaSSR is a robust online server that identifies Simple Sequence Repeats (SSR) and enables the design of SSR markers in high-throughput data. MegaSSR perfectly matches any target genome (including Plantae, Protozoa, Animalia, Chromista, Fungi, Archaea, and Bacteria). The pipeline is freely available at [https://bioinformatics.um6p.ma/MegaSSR](https://bioinformatics.um6p.ma/MegaSSR) and [github repository](https://github.com/MoradMMokhtar/MegaSSR). 
+MegaSSR is a robust online server that identifies Simple Sequence Repeats (SSR) and enables the design of SSR markers in high-throughput data. MegaSSR perfectly matches any target genome (including Plantae, Protozoa, Animalia, Chromista, Fungi, Archaea, and Bacteria). The pipeline is freely available at [https://bioinformatics.um6p.ma/MegaSSR](https://bioinformatics.um6p.ma/MegaSSR) and [github repository](https://github.com/MoradMMokhtar/MegaSSR).
 
 The computational pipeline consists of the SSR identification tool MISA, Primer3 for PCR primer design, Primersearch (EMBOSS) for in silico validation of designed SSR primers, and Bandwagon for in silico gel visualization. Other processes, such as SSR classification, annotation, and motif comparisons, were performed using custom scripts written in various programming languages such as [Perl](https://www.perl.org/), [Python](https://www.python.org/), and [shell script](https://www.shellscript.sh/).
 
@@ -10,9 +10,9 @@ MegaSSR running with two options:
 
 
 > 1: Simple Sequence Repeat identification, classification, SSR marker design, in silico validation of the designed SSR primers, and gel visualization.
-> 
+>
 > 2: Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, SSR marker design, in silico validation of the designed SSR primers, and gel visualization.
-> 
+>
 
 ## #The local standalone version of MegaSSR
 MegaSSR has been tested on Ubuntu 18.04 and 20.04.
@@ -27,11 +27,11 @@ MegaSSR has been tested on Ubuntu 18.04 and 20.04.
 ### **Install**
 The installation require conda. You can install all dependencies for running MegaSSR in a new conda environment using the MegaSSR.yml and plots.yml files. If you do not have conda, please follow [this tutorial](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html).
 
-1- Download repository from github 
->`git clone https://github.com/MoradMMokhtar/MegaSSR.git` 
+1- Download repository from github
+>`git clone https://github.com/MoradMMokhtar/MegaSSR.git`
 
-2- Go to the MegaSSR folder 
->`cd MegaSSR ` 
+2- Go to the MegaSSR folder
+>`cd MegaSSR `
 
 3- Create the MegaSSR environment with dependencies   
 >`conda env create -f MegaSSR.yml`
@@ -49,16 +49,16 @@ The installation require conda. You can install all dependencies for running Meg
 Go to the MegaSSR folder
 
 
-    
+
     bash MegaSSR.sh -A [1 or 2] -F [Genome in FASTA Format] -G [GFF/GFF3 File]
-    
+
     #Required arguments:
-	-A	The analysis type [1 or 2] 
-	1 (for Simple Sequence Repeat identification, classification, and SSR marker design 'This analysis needs FASTA file only') 
+	-A	The analysis type [1 or 2]
+	1 (for Simple Sequence Repeat identification, classification, and SSR marker design 'This analysis needs FASTA file only')
 	2 (for Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, and SSR marker design 'This analysis needs FASTA and GFF files') 	       
-	-F	Your path to the genome sequence (Fasta file). 
+	-F	Your path to the genome sequence (Fasta file).
 	-G	Your path to the genome annotation (GFF/GFF3 file). Required with argument -A 2 only.
-	
+
     #Optional arguments:
 	-P     Outfileprefix, default is results.
 	-1     Mininum number of Mononucleotide motifs, default is 10
@@ -77,9 +77,9 @@ Go to the MegaSSR folder
 	-L     The maximum length by base pair for allele search, default value is 1000"   
 	-I     The maximum number of primers in each image. Note that only primers with more than one band are drawn. The default value is 50"
 	-h     Print this Help
-    
+
     Default parameters:bash MegaSSR.sh -A 2 -F /path/to/genome_fasta_file  -G /path/to/gff_file -P results -1 20 -2 10 -3 9 -4 5 -5 4 -6 4 -C 100 -s 18 -O 20 -S 22 -R 100-500 -B no -t 4 -L 1000 -I 50
- 
+
 
 
 ### Run Example
@@ -119,7 +119,7 @@ We have collected the main output files in the Results folder in the main output
 
  #
  ### Example of output images. Note: The output files are located in the folder Example_results
- 
+
  - In silico gel visualization
  ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/images/3_insilco_gel.jpg)
 
