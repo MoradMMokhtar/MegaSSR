@@ -26,7 +26,7 @@ eval "$(conda shell.bash hook)"
        Min=18
        opt=20
        max=22
-       range=100-500
+       range=250-500
        threads=4
        alleles=no
        max_allele_length=1000
@@ -268,7 +268,8 @@ version()
                      tail -n +4 $FASTA/"$name"_Frequency_of_classified_repeat_with_complementary.txt2 > $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3
                      sed -i '$d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3
                      awk '{print $0"\t"length($3)}' $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3 >$FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt4
-                     sed '1d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt >$FASTA/"$name"_Frequency_SSR_motifs.complementary.txt            
+                     sed '1d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt >$FASTA/"$name"_Frequency_SSR_motifs.complementary.txt  
+                     sed -i -E 's/\:\s+/\t/g' $FASTA/$name.RESULTS_OF_MICROSATELLITE_SEARCH.txt          
               done
 
               python3 $Script/ssr_merge.py $FASTA  _Frequency_SSR_motifs.complementary.txt
@@ -279,7 +280,6 @@ version()
 
               python3 $Script/ssr_merge.py $FASTA  .Distribution_to_different_repeat_type_classes.stat.txt
               sed '1s/^/Repeats\ttotal\n/' $FASTA/mergerd.Distribution_to_different_repeat_type_classes.stat.txt > $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt2
-              sed -i -E 's/\:\s+/\t/g' $FASTA/*.RESULTS_OF_MICROSATELLITE_SEARCH.txt
               python3 $Script/ssr_merge.py $FASTA  .RESULTS_OF_MICROSATELLITE_SEARCH.txt
               cp $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt $sql/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.txt
 
@@ -303,6 +303,7 @@ version()
                      name=$(basename $i ".fa")
                             python3 $Script/designprimer_threads.py $i  $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl 
                      done
+              cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
               ############################primer-design##############################
               python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
 
@@ -458,7 +459,8 @@ version()
                      tail -n +4 $FASTA/"$name"_Frequency_of_classified_repeat_with_complementary.txt2 > $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3
                      sed -i '$d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3
                      awk '{print $0"\t"length($3)}' $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt3 >$FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt4
-                     sed '1d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt >$FASTA/"$name"_Frequency_SSR_motifs.complementary.txt            
+                     sed '1d'  $FASTA/"$name"_Frequency_of_identified_SSR_motifs_with_complementary.txt >$FASTA/"$name"_Frequency_SSR_motifs.complementary.txt 
+                     sed -i -E 's/\:\s+/\t/g' $FASTA/$name.RESULTS_OF_MICROSATELLITE_SEARCH.txt           
               done
 
               python3 $Script/ssr_merge.py $FASTA  _Frequency_SSR_motifs.complementary.txt
@@ -469,7 +471,6 @@ version()
 
               python3 $Script/ssr_merge.py $FASTA  .Distribution_to_different_repeat_type_classes.stat.txt
               sed '1s/^/Repeats\ttotal\n/' $FASTA/mergerd.Distribution_to_different_repeat_type_classes.stat.txt > $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt2
-              sed -i -E 's/\:\s+/\t/g' $FASTA/*.RESULTS_OF_MICROSATELLITE_SEARCH.txt
               python3 $Script/ssr_merge.py $FASTA  .RESULTS_OF_MICROSATELLITE_SEARCH.txt
               cp $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt $sql/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.txt
 
@@ -504,6 +505,8 @@ version()
                      name=$(basename $i ".fa")
                             python3 $Script/gdesignprimer_threads.py $i  $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl 
                      done
+              cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
+              cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
               ############################primer-design##############################
               python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
                                                                  

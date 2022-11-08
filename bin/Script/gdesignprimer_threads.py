@@ -26,7 +26,7 @@ def f(fname):
     #Function is bieng executed
     fastabase=FASTA.split('/')[-1].replace('.fa','')
     name2=fname.split('/')[-1]
-    os.system(f"perl {extractseq} {FASTA} {fname} {outdir}/{fastabase}.{name2}")
+    os.system(f"perl {extractseq} {FASTA} {fname} {outdir}/{fastabase}.{name2}.fa")
     os.system(f"perl {modified_p3} {outdir}/{fastabase}.{name2}")
 
 # set a number of processes to use ncore each ### with work as for
