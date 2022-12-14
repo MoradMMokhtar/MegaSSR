@@ -116,6 +116,9 @@ We have collected the main output files in the Results folder in the main output
 | 23 | x_insilco_gel.jpg |&#10003;  |&#10003;  |
 | 24 | Venn diagram of genic and non-genic SSR.png |&#88;  |&#10003;  |
 | 25 | SSR primer alleles.csv |&#10003;  |&#10003;  |
+| 26 | Genic SSR flanking regions.fa |&#88;  |&#10003;  |
+| 27 | Non-genic SSR flanking regions.fa |&#88;  |&#10003;  |
+| 27 | SSR flanking regions.fa |&#10003;  | &#88; |
 
  #
  ### Example of output images. Note: The output files are located in the folder Example_results
@@ -127,22 +130,22 @@ We have collected the main output files in the Results folder in the main output
  ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/images/Venn_diagram_of_genic_and_non-genic_SSR.png)
 
  - Distribution of the different SSR classes
- ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_various_SSR_classes.png)
+ ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_the_different_SSR_classes2.png)
 
  - SSR distribution considering sequence complementarity
-![SSR distribution considering sequence complementarity](https://bioinformatics.um6p.ma/MegaSSR/images/SSR_distribution_considering_sequence_complementary.png)
+![SSR distribution considering sequence complementarity](https://bioinformatics.um6p.ma/MegaSSR/images/SSR_distribution_considering_sequence_complementarity2.png)
 
  - Frequency of the identified SSR motifs
-![Frequency of the identified SSR motifs](https://bioinformatics.um6p.ma/MegaSSR/images/Frequency_of_identified_SSR_motifs.png)
+![Frequency of the identified SSR motifs](https://bioinformatics.um6p.ma/MegaSSR/images/Frequency_of_the_identified_SSR_motifs2.png)
 
  - Common reprate between genic and non-genic regions
-![Common reprate between genic and non-genic regions](https://bioinformatics.um6p.ma/MegaSSR/images/Shared_reprats_between_genic_and_non-genic_regions.png)
+![Common reprate between genic and non-genic regions](https://bioinformatics.um6p.ma/MegaSSR/images/Common_repeats_between_genic_and_non-genic_regions2.png)
 
  - Unique repeats in the genic region
-![Unique repeats in the genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_of_the_genic_region.png)
+![Unique repeats in the genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_in_the_genic_region2.png)
 
  - Unique repeats of the non-genic region
-![Unique repeats of the non-genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_of_the_non-genic_region.png)
+![Unique repeats of the non-genic region](https://bioinformatics.um6p.ma/MegaSSR/images/Unique_repeats_of_the_non-genic_region2.png)
 #
 ### For more information and help
 To report bugs and give us suggestions, you can open an [issue](https://github.com/MoradMMokhtar/MegaSSR) on the github repository. Feel free also to contact us by e-mail ([morad.mokhtar@um6p.ma](morad.mokhtar@um6p.ma)); ([achraf.elallali@um6p.ma](achraf.elallali@um6p.ma)).
