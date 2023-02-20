@@ -127,7 +127,7 @@ We have collected the main output files in the Results folder in the main output
  ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/3_insilco_gel.jpg)
 
 - Venn diagram of identified genic and non-genic SSR
- ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/Venn_diagram_of_genic_and_non-genic_SSR.png)
+ ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/Venn_diagram_of_genic_and_non-genic_SSR2.png)
 
  - Distribution of the different SSR classes
  ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/Distribution_of_the_different_SSR_classes2.png)
