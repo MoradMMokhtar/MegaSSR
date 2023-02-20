@@ -130,7 +130,7 @@ We have collected the main output files in the Results folder in the main output
  ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/Venn_diagram_of_genic_and_non-genic_SSR.png)
 
  - Distribution of the different SSR classes
- ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_the_different_SSR_classes2.png)
+ ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/Distribution_of_the_different_SSR_classes2.png)
 
  - SSR distribution considering sequence complementarity
 ![SSR distribution considering sequence complementarity](https://bioinformatics.um6p.ma/MegaSSR/images/SSR_distribution_considering_sequence_complementarity2.png)
