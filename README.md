@@ -124,10 +124,10 @@ We have collected the main output files in the Results folder in the main output
  ### Example of output images. Note: The output files are located in the folder Example_results
 
  - In silico gel visualization
- ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/images/3_insilco_gel.jpg)
+ ![In silico gel visualization](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/3_insilco_gel.jpg)
 
 - Venn diagram of identified genic and non-genic SSR
- ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/images/Venn_diagram_of_genic_and_non-genic_SSR.png)
+ ![Venn diagram of identified genic and non-genic SSR](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/Venn_diagram_of_genic_and_non-genic_SSR.png)
 
  - Distribution of the different SSR classes
  ![Distribution of the different SSR classes](https://bioinformatics.um6p.ma/MegaSSR/images/Distribution_of_the_different_SSR_classes2.png)
