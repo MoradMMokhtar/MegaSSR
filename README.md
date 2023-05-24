@@ -148,4 +148,4 @@ We have collected the main output files in the Results folder in the main output
 ![Unique repeats of the non-genic region](https://bioinformatics.um6p.ma/MegaSSR/documentation_github_img/Unique_repeats_of_the_non-genic_region2.png)
 #
 ### For more information and help
-To report bugs and give us suggestions, you can open an [issue](https://github.com/MoradMMokhtar/MegaSSR) on the github repository. Feel free also to contact us by e-mail ([morad.mokhtar@um6p.ma](morad.mokhtar@um6p.ma)); ([achraf.elallali@um6p.ma](achraf.elallali@um6p.ma)).
+To report bugs and give us suggestions, you can open an [issue](https://github.com/MoradMMokhtar/MegaSSR) on the github repository. Feel free also to contact us by e-mail ([morad.mokhtar@ageri.sci.eg](morad.mokhtar@ageri.sci.eg)); ([achraf.elallali@um6p.ma](achraf.elallali@um6p.ma)).
