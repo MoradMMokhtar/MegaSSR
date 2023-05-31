@@ -114,7 +114,7 @@ version()
        conda activate MegaSSR
        now="$(date)" 
        echo
-       printf "\t#############################################\n\t##############  MegaSSR v2.1.0  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Rachid El Fermi, Alsamman M. Alsamman, Achraf El Allali\n\n"
+       printf "\t#############################################\n\t##############  MegaSSR v2.1.0  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Alsamman M. Alsamman, Achraf El Allali\n\n"
        printf "\t$now \t Start time %s\n"  ### print current date
        echo
        printf "\tParameters: -A $Analysistype -F $Fasta -G $Gff -P $organis_name -1 $mono -2 $di -3 $tri -4 $tetra -5 $penta -6 $hexa -C $compound -s $Min -O $opt -S $max -R $range -t $threads -B $alleles -L $max_allele_length -I $primer_image\n\n"
