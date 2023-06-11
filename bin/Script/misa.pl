@@ -1,3 +1,4 @@
+#!/usr/bin/perl -w
 # Author: Thomas Thiel
 # Program name: misa.pl
 
@@ -109,7 +110,7 @@ while (<IN>)
       my $redundant; #reject false type motifs [e.g. (TT)6 or (ACAC)5]
       for ($j = $motiflen - 1; $j > 0; $j--)
         {
-        my $redmotif = "([ACGT]\x7D$j\x7D)\\1\x7D".($motiflen/$j-1)."\x7D";
+        my $redmotif = "([ACGT]{$j})\\1{".($motiflen/$j-1)."}";
         $redundant = 1 if ( $motif =~ /$redmotif/ )
         };
       next if $redundant;
@@ -297,4 +298,3 @@ for ($i = 0; $i < scalar (@red_rev); $i++)
     };
   print OUT "\t",$red_rev[$i]->{"total"},"\n";
   };
-
