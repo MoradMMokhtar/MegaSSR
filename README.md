@@ -31,7 +31,8 @@ The installation require conda. You can install all dependencies for running Meg
 >`git clone https://github.com/MoradMMokhtar/MegaSSR.git`
 
 2- Go to the MegaSSR folder
->`cd MegaSSR `
+>`unzip MegaSSR-main.zip`
+>`cd MegaSSR`
 
 3- Create the MegaSSR environment with dependencies   
 >`conda env create -f MegaSSR.yml`
