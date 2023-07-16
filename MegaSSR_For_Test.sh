@@ -202,7 +202,8 @@ version()
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
        cd $FASTA
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
-       faidx --split-files $outdir/"$sequence_acc"_genomic.fa      
+       #faidx --split-files $outdir/"$sequence_acc"_genomic.fa
+       python3 $Script/split_fasta_by_chromo_size.py $outdir/"$sequence_acc"_genomic.fa  $FASTA $threads                   
 
        if [ $Analysistype -eq 1 ] # #####  General-SSR #########
               then
