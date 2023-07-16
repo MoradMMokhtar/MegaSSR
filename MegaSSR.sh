@@ -190,6 +190,8 @@ version()
        gdesignprimer=$outdir/gdesignprimer
        gdesignprimerresults= mkdir -p $outdir/gdesignprimerresults
        gdesignprimerresults=$outdir/gdesignprimerresults
+       USERCH= mkdir -p $outdir/USERCH
+       USERCH=$outdir/USERCH
 
        ###############################################################
        python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
@@ -302,6 +304,19 @@ version()
                             python3 $Script/designprimer_threads.py $i  $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl 
                      done
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
+	      
+	     	 ######## for SSR.non-redundant.fa #################
+       		cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
+		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
+		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
+		rm $USERCH/aligned.* 
+		sed '2d' $USERCH/usearch2.log >$outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+		sed -i '3d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+		sed -i '11d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+		cp $USERCH/SSR.non-redundant.fa $outdir/"$organis_name"-MegaSSR_Results/"Non-redundant SSR library.fasta"
+		now100="$(date)"
+		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
+
               ############################primer-design##############################
               python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
 
@@ -329,22 +344,7 @@ version()
               cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results    
               now8="$(date)"
               printf "\n\n\t$now8 \tDrawing plots Done %s\n\n"
-              #########################jbrowse################################
-
-              awk -F'\t' '{ print $3"\t""MegaSSR""\t""SSR_Repeat""\t"$8"\t"$9"\t"".""\t""+""\t"".""\t""ID="$3":"$4";Repeat_Type="$5";Repeat_Sequence="$6";Repeat_length="$7";Repeat_start="$8";Repeat_end="$9"" }' $sql/$organis_name.genomic.fa.misa.txt > $intermediate_File_step_1/ssr.gff3
-		sed -i '1d' $intermediate_File_step_1/ssr.gff3             
-		sort -b -k1,1 -k4,4n $intermediate_File_step_1/ssr.gff3 >$browse/ssr.sorted.gff3
-              bgzip $browse/ssr.sorted.gff3
-              tabix -p gff $browse/ssr.sorted.gff3.gz
-              awk -F'\t' '{ print $2"\t""MegaSSR""\t""SSR_Primer""\t"$8"\t"$9"\t"".""\t""+""\t"".""\t""ID="$2":"$4";Primer_F="$10";Primer_R="$14";Band_length="$18"" }' $sql/$organis_name.interGenic-primers.txt >$intermediate_File_step_1/interGenic-primers.txt
-		sed -i '1d' $intermediate_File_step_1/interGenic-primers.txt             
-		sort -b -k1,1 -k4,4n $intermediate_File_step_1/interGenic-primers.txt >$browse/primers.sorted.gff3
-              bgzip $browse/primers.sorted.gff3
-              tabix -p gff  $browse/primers.sorted.gff3.gz
-              cp $Script/tracks/tracks.conf $browse/tracks.conf
-              cp $outdir/"$sequence_acc"_genomic.fa $browse/fasta.fasta
-              samtools faidx $browse/fasta.fasta
-              cp -R $browse  $browse1              
+              
               ########################################################
 
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"The distribution of the different SSR classes".csv
@@ -506,6 +506,19 @@ version()
                      done
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
               cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
+	      
+	      	######## for SSR.non-redundant.fa #################
+       		$sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
+		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
+		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
+		rm $USERCH/aligned.* 
+		sed '2d' $USERCH/usearch2.log >$sql/SSR.non-redundant.log
+		sed -i '3d' $sql/SSR.non-redundant.log
+		sed -i '11d' $sql/SSR.non-redundant.log
+		cp $USERCH/SSR.non-redundant.fa $sql/Non-redundant SSR library.fasta"
+		now100="$(date)"
+		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
+
               ############################primer-design##############################
               python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
                                                                  
