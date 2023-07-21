@@ -298,8 +298,5 @@ for ($i = 0; $i < scalar (@red_rev); $i++)
     };
   print OUT "\t",$red_rev[$i]->{"total"},"\n";
   };
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes

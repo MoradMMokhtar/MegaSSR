@@ -202,10 +202,6 @@ version()
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
        cd $FASTA || exit
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
-<<<<<<< Updated upstream
-       #faidx --split-files $outdir/"$sequence_acc"_genomic.fa      
-       python3 $Script/split_fasta_by_chromo_size.py $outdir/"$sequence_acc"_genomic.fa  $FASTA $threads            
-=======
        # Split the files using csplit
        csplit -s -z "$outdir/"$sequence_acc"_genomic.fa" '/>/' '{*}'
        # Function to replace special characters (including colons) with hyphens (-)
@@ -227,7 +223,6 @@ version()
        # Use the mv command to rename the file
        mv "$i" "${new_name}.fa"
        done
->>>>>>> Stashed changes
 
        if [ $Analysistype -eq 1 ] # #####  General-SSR #########
               then
@@ -319,64 +314,6 @@ version()
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_identified_SSR_motifs.txt4
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_classified_repeat_with_complementary.txt4
               sed -i '1d' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
-<<<<<<< Updated upstream
-       
-              now6="$(date)"
-              printf "\n\n\t$now6 \tDesign SSR primers started%s\n\n"
-              ############################ SSR Primers##############################              
-              cd $designprimer
-              split -d -l 500 $sql/$organis_name.Accept_Intergenic_SSR.txt 
-
-                     for i in $FASTA/*.fa
-                     do
-                     name=$(basename $i ".fa")
-                            python3 $Script/designprimer_threads.py $i  $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl 
-                     done
-              cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
-	      
-	     	 ######## for SSR.non-redundant.fa #################
-       		cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
-		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
-		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
-		rm $USERCH/aligned.* 
-		sed '2d' $USERCH/usearch2.log >$outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		sed -i '3d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		sed -i '11d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		cp $USERCH/SSR.non-redundant.fa $outdir/"$organis_name"-MegaSSR_Results/"Non-redundant SSR library.fasta"
-		now100="$(date)"
-		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
-
-              ############################primer-design##############################
-              python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
-
-              awk '!seen[$9]++' $intermediate_File_step_1/$organis_name.interGenic-primers3.txt > $intermediate_File_step_1/$organis_name.interGenic-primers3_2.txt
-              awk '!seen[$13]++' $intermediate_File_step_1/$organis_name.interGenic-primers3_2.txt > $sql/$organis_name.interGenic-primers.txt
-              wc -l $sql/$organis_name.interGenic-primers.txt >$intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat
-              sed -i 's/\s/\t/g' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat
-              awk -F "\t" -v txt="No. of desinged SSR primers" -v org=$organis_name '{print "\t"'org'"\t"'txt'"\t"$1}' $intermediate_File_step_1/$organis_name.Extract-intergenic-out.fasta.stat >$sql/$organis_name.intergenic.primers.stat.txt
-              
-              now7="$(date)"
-              printf "\n\n\t$now7 \tDesign SSR primers Done%s\n\n"
-              #########################################################
-              sed -i '1s/^/\tProcess Id\tSequence Id\tRepeat number\tRepeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\n/' $sql/$organis_name.genomic.fa.misa.txt
-              sed -i '1s/^/\tProcess Id\tSequence Id\tRepeat number\tRepeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\n/' $sql/$organis_name.Accept_Intergenic_SSR.txt
-              sed -i '1s/^/\tProcess Id\tRepeat Type\tTotal No. of present\n/' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
-              sed -i '1s/^/\tSequence ID\tProcess Id\tRepeat number\Repeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\tPrimer Start\tPrimer End\tForward Primer\tForward Tm\tForward Size (bp)\tForward GC\tReverse Primer\tReverse Tm\tReverse Size (bp)\tReverse GC\tProduct Size (bp)\t\n/' $sql/$organis_name.interGenic-primers.txt
-              ###########################plots###############################
-                                   
-              cut -f2- $outdir/"$organis_name"-MegaSSR_Results/*Distribution_to_different_repeat_type_classes.stat.txt > $plotread/Distribution_to_different_repeat_type_classes.stat.txt
-              cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs_with_complementary.txt $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt
-              cp $outdir/"$organis_name"-MegaSSR_Results/*Frequency_of_identified_SSR_motifs.txt $plotread/Frequency_of_identified_SSR_motifs.txt
-              python3 -W ignore $Script/Distribution_to_different_repeat_type_classes.stat.py $plotread/Distribution_to_different_repeat_type_classes.stat.txt $plots/"Distribution of the different SSR classes".png 
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs_with_complementary.py $plotread/Frequency_of_identified_SSR_motifs_with_complementary.txt $plots/"SSR distribution considering sequence complementarity".png
-              python3 -W ignore $Script/Frequency_of_identified_SSR_motifs.py $plotread/Frequency_of_identified_SSR_motifs.txt $plots/"Frequency of the identified SSR motifs".png
-              cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results    
-              now8="$(date)"
-              printf "\n\n\t$now8 \tDrawing plots Done %s\n\n"
-              
-              ########################################################
-=======
->>>>>>> Stashed changes
 
               cat $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt
               grep "Total number of identified SSRs" $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt >$FASTA/For_SSR_Stat  ##Total number of identified SSRs
@@ -588,59 +525,6 @@ version()
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_classified_repeat_with_complementary.txt4
               sed -i '1d' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
 
-<<<<<<< Updated upstream
-              now4="$(date)"
-              printf "\n\n\t$now4 \tClassification, gene-based annotation and motif comparisons done%s\n\n"
-
-               ############################ SSR Primers##############################
-
-              cd $designprimer ### intergenic
-              split -d -l 500 $sql/$organis_name.Accept_Intergenic_SSR.txt 
-
-                     for i in $FASTA/*.fa
-                     do
-                     name=$(basename $i ".fa")
-                            python3 $Script/designprimer_threads.py $i  $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl 
-                     done
-
-              cd $gdesignprimer  ##genic primer-design
-              split -d -l 500 $sql/table11_Genic_misa_feature.txt 
-
-                     for i in $FASTA/*.fa
-                     do
-                     name=$(basename $i ".fa")
-                            python3 $Script/gdesignprimer_threads.py $i  $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl 
-                     done
-              cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
-              cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
-	      
-	      	######## for SSR.non-redundant.fa #################
-       		$sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
-		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
-		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
-		rm $USERCH/aligned.* 
-		sed '2d' $USERCH/usearch2.log >$sql/SSR.non-redundant.log
-		sed -i '3d' $sql/SSR.non-redundant.log
-		sed -i '11d' $sql/SSR.non-redundant.log
-		cp $USERCH/SSR.non-redundant.fa $sql/Non-redundant SSR library.fasta"
-		now100="$(date)"
-		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
-
-              ############################primer-design##############################
-              python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
-                                                                 
-              #######prepear genic primers table with repeat and gene info (only desinged primers)#########                           
-
-              awk '!seen[$15]++' $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results2.txt > $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results2_2.txt
-              awk '!seen[$19]++' $intermediate_File_step_1/$organis_name.Extract-Genic-seq-out.fasta.results2_2.txt > $sql/$organis_name.Genic-primers.txt
-              wc -l $sql/$organis_name.Genic-primers.txt >$intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat
-              sed -i 's/\s/\t/g' $intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat
-              awk -F "\t" -v txt="No. of desinged SSR primers" -v org=$organis_name '{print "\t"'org'"\t"'txt'"\t"$1}' $intermediate_File_step_1/$organis_name.Extract-Genic-out.fasta.stat >$sql/$organis_name.genic.primers.stat.txt
-
-              now5="$(date)"
-              printf "\n\n\t$now5 \tDesign genic-SSR primers done%s\n\n"
-              
-=======
               cat $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt
               grep "Total number of identified SSRs" $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt >$FASTA/For_SSR_Stat  ##Total number of identified SSRs
               awk -F "\t" '{print $2}' $FASTA/For_SSR_Stat >$FASTA/For_SSR_Stat.status ##Total number of identified SSRs
@@ -701,7 +585,6 @@ version()
                      now5="$(date)"
                      printf "\n\n\t$now5 \tDesign genic-SSR primers done%s\n\n"
                      
->>>>>>> Stashed changes
 
                      python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
                      
@@ -827,10 +710,4 @@ fi
               rm -rf $sql
               rm $outdir/misa.ini
               rm $outdir/modified_p3_in.pl
-<<<<<<< Updated upstream
               rm -rf $outdir/$organis_name
-              now13="$(date)"
-              printf "\t$now13 \tMegaSSR Done, The results saved in ($outdir) %s\n"
-=======
-              rm -rf $outdir/$organis_name
->>>>>>> Stashed changes

@@ -199,20 +199,12 @@ version()
        gdesignprimerresults=$outdir/gdesignprimerresults
        USERCH= mkdir -p $outdir/USERCH
        USERCH=$outdir/USERCH
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
        ###############################################################
        python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
        cd $FASTA || exit
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
-<<<<<<< Updated upstream
-       #faidx --split-files $outdir/"$sequence_acc"_genomic.fa
-       python3 $Script/split_fasta_by_chromo_size.py $outdir/"$sequence_acc"_genomic.fa  $FASTA $threads                   
-=======
        # Split the files using csplit
        csplit -s -z "$outdir/"$sequence_acc"_genomic.fa" '/>/' '{*}'
        # Function to replace special characters (including colons) with hyphens (-)
@@ -234,7 +226,6 @@ version()
        # Use the mv command to rename the file
        mv "$i" "${new_name}.fa"
        done
->>>>>>> Stashed changes
 
        if [ $Analysistype -eq 1 ] # #####  General-SSR #########
               then
@@ -351,19 +342,6 @@ version()
                      done
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
 	      
-<<<<<<< Updated upstream
-	      ######## for SSR.non-redundant.fa #################
-       		cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
-		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
-		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
-		rm $USERCH/aligned.* 
-		sed '2d' $USERCH/usearch2.log >$outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		sed -i '3d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		sed -i '11d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
-		cp $USERCH/SSR.non-redundant.fa $outdir/"$organis_name"-MegaSSR_Results/"Non-redundant SSR library.fasta"
-		now100="$(date)"
-		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
-=======
                      ######## for SSR.non-redundant.fa #################
                      cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
                      $Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log >>$USERCH/screen
@@ -376,7 +354,6 @@ version()
                      now100="$(date)"
                      printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
 
->>>>>>> Stashed changes
               ############################primer-design##############################
               python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
 
@@ -404,10 +381,6 @@ version()
               cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results    
               now8="$(date)"
               printf "\n\n\t$now8 \tDrawing plots Done %s\n\n"
-<<<<<<< Updated upstream
-   
-=======
->>>>>>> Stashed changes
               ########################################################
 
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"The distribution of the different SSR classes".csv
@@ -592,19 +565,6 @@ version()
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
               cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
 	      
-<<<<<<< Updated upstream
-	     	######## for SSR.non-redundant.fa #################
-       		$sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
-		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
-		$Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log
-		rm $USERCH/aligned.* 
-		sed '2d' $USERCH/usearch2.log >$sql/SSR.non-redundant.log
-		sed -i '3d' $sql/SSR.non-redundant.log
-		sed -i '11d' $sql/SSR.non-redundant.log
-		cp $USERCH/SSR.non-redundant.fa $sql/Non-redundant SSR library.fasta"
-		now100="$(date)"
-		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n" 
-=======
                      ######## for SSR.non-redundant.fa #################
                      cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
                      $Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log >>$USERCH/screen
@@ -617,7 +577,6 @@ version()
                      now100="$(date)"
                      printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
 
->>>>>>> Stashed changes
               ############################primer-design##############################
               python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
                                                                  
@@ -757,10 +716,4 @@ fi
               rm -rf $sql
               rm $outdir/misa.ini
               rm $outdir/modified_p3_in.pl
-<<<<<<< Updated upstream
               rm -rf $outdir/$organis_name
-              now13="$(date)"
-              printf "\t$now13 \tMegaSSR Done, The results saved in ($outdir) %s\n"
-=======
-              rm -rf $outdir/$organis_name
->>>>>>> Stashed changes
