@@ -24,7 +24,8 @@ from multiprocessing import Pool
 def f(fname):
      
     #Function is bieng executed
-    os.system(f"perl {MISA} {fname} {outdir} && cat {fname}.misa >> {path}/all_results.misa && rm {fname}.misa")
+    # os.system(f"perl {MISA} {fname} {outdir} && cat {fname}.misa >> {path}/all_results.misa && rm {fname}.misa")
+    os.system(f"perl {MISA} {fname} {outdir} && cat {fname}.misa >> {path}/all_results.misa")
     
 
 # set a number of processes to use ncore each ### with work as for

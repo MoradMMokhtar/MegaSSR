@@ -10,7 +10,7 @@ dependencies:
   - matplotlib
   - ipython
   - emboss
-  - perl
+  - perl=5.18.4
   - perl-bioperl
   - primer3=2.6.1
   - pthread-stubs

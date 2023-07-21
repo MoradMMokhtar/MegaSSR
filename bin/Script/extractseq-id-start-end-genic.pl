@@ -10,7 +10,7 @@ while(<IDS>)
 #primername Id start end
 if(/\t(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/)
 {
-   push(@{$ids{$2}},[$7,$8,$1,$3,$4,$5,$6,$8,$9,$10,$11,$12,$13]);
+  push(@{$ids{$2}},[$7,$8,$1,$3,$4,$5,$6,$8,$9,$10,$11,$12,$13]);
 }
 }
 close IDS;
@@ -37,8 +37,8 @@ while ( my $seqobj = $seqfile->next_seq )
 my @array=@{$ids{$seqobj->display_id()}};
 foreach my $se(@array)
 {
-  my @searray=@{$se};
-  my $st = $searray[0]-200;
+my @searray=@{$se};
+my $st = $searray[0]-200;
 my $et = $searray[1]+200;
 my $pm = $searray[2];  
 my $sm = $searray[3];
@@ -54,8 +54,8 @@ my $sm9 = $searray[12];
 
 my $rstat = $st+200;
 my $rend = $et-200;
- my $seqout=substr ($seqobj->seq(),$st,($et-$st));
- my $seqoutseq = Bio::Seq->new(-seq=>$seqout, -format => 'fasta');
+my $seqout=substr ($seqobj->seq(),$st,($et-$st));
+my $seqoutseq = Bio::Seq->new(-seq=>$seqout, -format => 'fasta');
   $seqoutseq->display_id(  $seqobj->display_id() ."==$pm==$sm==$sm1==$rstat==$rend==$st==$et"."==".$sm2."==".$sm3."==".$sm4."==".$sm5."==".$sm6."==".$sm7."==".$sm8."=="."$sm9" );
 my $writefile = Bio::SeqIO->new(-id=>"$result",-file => ">>$result", -format => "fasta");
 $writefile->write_seq($seqoutseq);

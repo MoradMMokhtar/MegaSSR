@@ -27,6 +27,7 @@ def f(fname):
     #Function is bieng executed
     fastabase=FASTA.split('/')[-1].replace('.fa','')
     name2=fname.split('/')[-1]
+    # print(FASTA)
     os.system(f"primersearch -seqall {FASTA} -infile {fname} -mismatchperc 6 -outfile {outdir}/{fastabase}.{name2} -auto && cat {outdir}/{fastabase}.{name2} >> {outdir}/results.primersearch && rm {outdir}/{fastabase}.{name2}")    
     # os.system(f"primersearch -seqall {FASTA} -infile {fname} -mismatchperc 6 -outfile {outdir}/{fastabase}.{name2} -auto")    
 

@@ -6,6 +6,7 @@ if [ $# -eq 0 ]
 fi
 userpath=$(pwd)
 Script=$userpath/bin/Script
+chmod 775 $Script/usearch11.0.667_i86linux32 #Give execulting permissions for LTRretriever
 test=$(pwd)/Data_For_Test
 eval "$(conda shell.bash hook)"
 ############################################################
@@ -31,6 +32,7 @@ eval "$(conda shell.bash hook)"
        alleles=no
        max_allele_length=1000
        primer_image=50
+       genic=gene
 ##}
 ############################################################
 # Help                                                     #
@@ -47,6 +49,7 @@ Help()
    echo "     -A     The analysis type [1 or 2] 1 (for Simple Sequence Repeat identification, classification, and SSR marker design 'This analysis needs FASTA file only') 2 (for Simple Sequence Repeat identification, classification, gene-based annotation, motif comparison, and SSR marker design 'This analysis needs FASTA and GFF files') , default is 2"
    echo "     -F     Your path to Fasta file."
    echo "     -G     Your path to GFF file."
+   echo "     -g     Classify SSR as genic based on the GFF file with one of the following [gene or mRNA or CDS], default is gene."
    echo "     -P     Outfileprefix, default is results."
    echo "     -1     Mininum number of Mononucleotide motifs, default is 10"
    echo "     -2     Mininum number of Dinucleotide motifs, default is 6"
@@ -78,7 +81,7 @@ version()
        # Process the input options.                               #
        ############################################################
        check=0
-       while getopts h:A:F:G:P:1:2:3:4:5:6:C:s:S:O:R:v:t:B:L:I: options
+       while getopts h:A:F:G:g:P:1:2:3:4:5:6:C:s:S:O:R:v:t:B:L:I: options
        do
               case $options in
               h) Help;;
@@ -86,6 +89,7 @@ version()
               A) Analysistype=$OPTARG;((check=check+1));;
               F) Fasta=$OPTARG;((check=check+1));;
               G) Gff=$OPTARG;;
+              g) genic=$OPTARG;;
               P) organis_name=$OPTARG;;
               1) mono=$OPTARG;;
               2) di=$OPTARG;;
@@ -120,7 +124,7 @@ version()
        printf "\t#############################################\n\t##############  MegaSSR v2.1.0  ##############\n\t#############################################\n\n\tContributors: Morad M Mokhtar, Alsamman M. Alsamman, Achraf El Allali\n\n"
        printf "\t$now \t Start time %s\n"  ### print current date
        echo
-       printf "\tParameters: -A $Analysistype -F $Fasta -G $Gff -P $organis_name -1 $mono -2 $di -3 $tri -4 $tetra -5 $penta -6 $hexa -C $compound -s $Min -O $opt -S $max -R $range -t $threads -B $alleles -L $max_allele_length -I $primer_image\n\n"
+       printf "\tParameters:bash MegaSSR.sh -A $Analysistype -F $Fasta -G $Gff -g $genic -P $organis_name -1 $mono -2 $di -3 $tri -4 $tetra -5 $penta -6 $hexa -C $compound -s $Min -O $opt -S $max -R $range -t $threads -B $alleles -L $max_allele_length -I $primer_image\n\n"
 
        if [ $check -ne 2 ]
               then
@@ -139,7 +143,7 @@ version()
               printf "\tCheck the FASTA File format.\n"
               gunzip -c "$Fasta" >$outdir/"$sequence_acc"_genomic.fa
               perl $Script/checkfasta.pl $outdir/"$sequence_acc"_genomic.fa ### Check the FASTA File format
-              elif ([ $(stat -c%s "$Fasta") -gt 500 ]); then
+              elif ([ $(stat -c%s "$Fasta") -gt 50 ]); then
               printf "\tCheck the FASTA File format.\n"
               perl $Script/checkfasta.pl $Fasta ### Check the FASTA File format
               cp $Fasta $outdir/"$sequence_acc"_genomic.fa #### copy fasta file tRNA files
@@ -195,15 +199,42 @@ version()
        gdesignprimerresults=$outdir/gdesignprimerresults
        USERCH= mkdir -p $outdir/USERCH
        USERCH=$outdir/USERCH
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
        ###############################################################
        python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
-       cd $FASTA
+       cd $FASTA || exit
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
+<<<<<<< Updated upstream
        #faidx --split-files $outdir/"$sequence_acc"_genomic.fa
        python3 $Script/split_fasta_by_chromo_size.py $outdir/"$sequence_acc"_genomic.fa  $FASTA $threads                   
+=======
+       # Split the files using csplit
+       csplit -s -z "$outdir/"$sequence_acc"_genomic.fa" '/>/' '{*}'
+       # Function to replace special characters (including colons) with hyphens (-)
+       replace_special_chars() {
+       local str="$1"
+       # Replace special characters (including colons) with hyphen
+       echo "${str//[^[:alnum:]_-:]/-}"
+       }
+       # Iterate through the split files and rename them using the mv command
+       for i in xx* ; do
+       # Extract the name for the new file (excluding special characters)
+       n=$(sed 's/>// ; s/ .*// ; 1q' "$i")
+       # Call the function to replace special characters (including colons) with hyphens (-) for the main part of the filename
+       new_name=$(replace_special_chars "$n")
+       # Replace all colons with hyphens in the main part of the filename
+       main_part=$(echo "$n" | sed 's/:/-/g' | sed 's/|/-/g')
+       # Combine the main part and file extension with a period
+       new_name="${main_part}"
+       # Use the mv command to rename the file
+       mv "$i" "${new_name}.fa"
+       done
+>>>>>>> Stashed changes
 
        if [ $Analysistype -eq 1 ] # #####  General-SSR #########
               then
@@ -211,7 +242,7 @@ version()
               now2="$(date)"
               printf "\n\n\t$now2 \tSimple Sequence Repeat identification started %s\n\n"
               # SSR mining by use MISA (genome fasta)
-              python3 $Script/MISA_threads.py $FASTA $threads $Script/misa.pl $outdir
+              python3 $Script/MISA_threads.py $FASTA $threads $Script/misa.pl $outdir 2>/dev/null
               # move MISA file result to intermediate_File
               cp $FASTA/all_results.misa $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa # move MISA file result to intermediate_File
               awk -F'\t' -v org=$organis_name '{ print 'org'"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7 }'  $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa > $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa.txt
@@ -295,6 +326,17 @@ version()
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_identified_SSR_motifs.txt4
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_classified_repeat_with_complementary.txt4
               sed -i '1d' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
+
+              cat $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt
+              grep "Total number of identified SSRs" $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt >$FASTA/For_SSR_Stat  ##Total number of identified SSRs
+              awk -F "\t" '{print $2}' $FASTA/For_SSR_Stat >$FASTA/For_SSR_Stat.status ##Total number of identified SSRs
+              numberofssr=$(cat $FASTA/For_SSR_Stat.status)  ##Total number of identified SSRs
+
+              if [ $numberofssr -eq 0 ] ### Total number of identified SSRs
+                     then  
+
+                     printf "\n\n\tNo SSR was found, MegaSSR is stopped\n\n"
+                     else
        
               now6="$(date)"
               printf "\n\n\t$now6 \tDesign SSR primers started%s\n\n"
@@ -309,6 +351,7 @@ version()
                      done
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
 	      
+<<<<<<< Updated upstream
 	      ######## for SSR.non-redundant.fa #################
        		cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
 		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
@@ -320,6 +363,20 @@ version()
 		cp $USERCH/SSR.non-redundant.fa $outdir/"$organis_name"-MegaSSR_Results/"Non-redundant SSR library.fasta"
 		now100="$(date)"
 		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
+=======
+                     ######## for SSR.non-redundant.fa #################
+                     cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
+                     $Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log >>$USERCH/screen
+                     $Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log >>$USERCH/screen
+                     # rm $USERCH/aligned.* 
+                     sed '2d' $USERCH/usearch2.log >$outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+                     sed -i '3d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+                     sed -i '11d' $outdir/"$organis_name"-MegaSSR_Results/SSR.non-redundant.log
+                     cp $USERCH/SSR.non-redundant.fa $outdir/"$organis_name"-MegaSSR_Results/"Non-redundant SSR library.fasta"
+                     now100="$(date)"
+                     printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
+
+>>>>>>> Stashed changes
               ############################primer-design##############################
               python3 $Script/designprimer3_threads.py $designprimer $designprimerresults $threads $Script/extractseq-id-start-end-intergenic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-intergenic.pl $Script/print-primers-line-nongenicCCC.pl $intermediate_File_step_1
 
@@ -347,7 +404,10 @@ version()
               cp  $plots/*.png  $outdir/"$organis_name"-MegaSSR_Results    
               now8="$(date)"
               printf "\n\n\t$now8 \tDrawing plots Done %s\n\n"
+<<<<<<< Updated upstream
    
+=======
+>>>>>>> Stashed changes
               ########################################################
 
               mv $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt  $outdir/"$organis_name"-MegaSSR_Results/"The distribution of the different SSR classes".csv
@@ -362,17 +422,32 @@ version()
               cp $intermediate_File_step_1/$organis_name.interGenic-primers.txtsearch  $intermediate_File_step_1/$organis_name.primers.forprimersearch
               #########################################################
               now9="$(date)"
-              printf "\t$now9 \tMegaSSR Done, The results saved in ($outdir) %s\n"
+                     printf "\t$now9 \tThe results saved in $outdir %s\n"
+              fi
        fi
 
        if [ $Analysistype -eq 2 ] # #####  genic-SSR #########
               then
-              awk -F'\t' '$3~/gene/' $outdir/$sequence_acc.gff > $intermediate_File_step_1/$organis_name.fet2
+              awk -F '\t' '$3~/'$genic'/' $outdir/$sequence_acc.gff > $intermediate_File_step_1/$organis_name.fet2
+
+              awk -F "\t" '{print $1}' $intermediate_File_step_1/$organis_name.fet2 >$intermediate_File_step_1/$organis_name.fet.ids
+              awk '!x[$0]++'  $intermediate_File_step_1/$organis_name.fet.ids >$intermediate_File_step_1/$organis_name.fet.ids2
+              grep ">" $outdir/"$sequence_acc"_genomic.fa >$intermediate_File_step_1/fasta.ids
+              sed -i 's/>//g' $intermediate_File_step_1/fasta.ids
+              awk 'NR==FNR{seen[$0]=1; next} seen[$0]' $intermediate_File_step_1/$organis_name.fet.ids2 $intermediate_File_step_1/fasta.ids >$intermediate_File_step_1/sheard.ids
+
+              sheardfile=$intermediate_File_step_1/sheard.ids
+
+              if [ ! -s "${sheardfile}" ]; then
+
+              printf "\n\tThe sequence IDs between FASTA and GFF files do not match, so MegaSSR has been stopped. Please check this, otherwise use option -A 1 to identify SSR without classifying into genic and non-genic SSR\n\n"
+              
+              else
               # SSR mining by use MISA (genome fasta)
               now2="$(date)"
               printf "\n\n\t$now2 \tSimple Sequence Repeat identification started %s\n\n"
               # SSR mining by use MISA (genome fasta)
-              python3 $Script/MISA_threads.py $FASTA $threads $Script/misa.pl $outdir
+              python3 $Script/MISA_threads.py $FASTA $threads $Script/misa.pl $outdir 2>/dev/null
               # move MISA file result to intermediate_File
               cp $FASTA/all_results.misa $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa # move MISA file result to intermediate_File
               awk -F'\t' -v org=$organis_name '{ print 'org'"\t"$1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7 }'  $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa > $intermediate_File_step_1/"$sequence_acc"_genomic.fa.misa.txt
@@ -391,7 +466,6 @@ version()
               ################### Genic_SSR_with_feature
 
               perl $Script/get-genic-SSR.pl $sql/$organis_name.genomic.fa.misa.txt $intermediate_File_step_1/$organis_name.fet2  $intermediate_File_step_1/$organis_name.Genic_SSR_with_feature.txt  $sql/$organis_name.Genic_SSR_with_feature.txt $intermediate_File_step_1/$organis_name.Genic_SSR_none_feature.txt
-                            
               awk -F '\t'  '{ print "\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12"\t"$14"\t"$16 }' $sql/$organis_name.Genic_SSR_with_feature.txt >$sql/table11_Genic_misa_feature.txt
 
               ######## # Determine_Intergenic SSR (print found in file 2 [.misa] an not found in file 1 [feature])
@@ -484,6 +558,15 @@ version()
               sed -i '1d' $intermediate_File_step_1/"$sequence_acc"_Frequency_of_classified_repeat_with_complementary.txt4
               sed -i '1d' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
 
+              cat $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt
+              grep "Total number of identified SSRs" $FASTA/mergerd.RESULTS_OF_MICROSATELLITE_SEARCH.txt >$FASTA/For_SSR_Stat  ##Total number of identified SSRs
+              awk -F "\t" '{print $2}' $FASTA/For_SSR_Stat >$FASTA/For_SSR_Stat.status ##Total number of identified SSRs
+              numberofssr=$(cat $FASTA/For_SSR_Stat.status)  ##Total number of identified SSRs
+
+              if [ $numberofssr -eq 0 ] ### Total number of identified SSRs
+                     then  
+                     printf "\n\n\tNo SSR was found, MegaSSR is stopped\n\n"
+                     else
               now4="$(date)"
               printf "\n\n\t$now4 \tClassification, gene-based annotation and motif comparisons done%s\n\n"
 
@@ -509,6 +592,7 @@ version()
               cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
               cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
 	      
+<<<<<<< Updated upstream
 	     	######## for SSR.non-redundant.fa #################
        		$sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
 		$Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log
@@ -520,6 +604,20 @@ version()
 		cp $USERCH/SSR.non-redundant.fa $sql/Non-redundant SSR library.fasta"
 		now100="$(date)"
 		printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n" 
+=======
+                     ######## for SSR.non-redundant.fa #################
+                     cp $sql/$organis_name."SSR flanking sequence.fa" $USERCH/SSR_with_flanking_regions.fa
+                     $Script/usearch11.0.667_i86linux32  -sortbylength $USERCH/SSR_with_flanking_regions.fa --fastaout $USERCH/SSR_with_flanking_regions_sorted.fa --log $USERCH/usearch.log >>$USERCH/screen
+                     $Script/usearch11.0.667_i86linux32  -cluster_fast  $USERCH/SSR_with_flanking_regions_sorted.fa --id 0.9 --centroids $USERCH/my_centroids.fa --uc $USERCH/result.uc -consout $USERCH/SSR.non-redundant.fa -msaout $USERCH/aligned.fasta --log $USERCH/usearch2.log >>$USERCH/screen
+                     # rm $USERCH/aligned.* 
+                     sed '2d' $USERCH/usearch2.log >$sql/SSR.non-redundant.log
+                     sed -i '3d' $sql/SSR.non-redundant.log
+                     sed -i '11d' $sql/SSR.non-redundant.log
+                     cp $USERCH/SSR.non-redundant.fa $sql/"Non-redundant SSR library.fasta"
+                     now100="$(date)"
+                     printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
+
+>>>>>>> Stashed changes
               ############################primer-design##############################
               python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
                                                                  
@@ -602,7 +700,14 @@ version()
               ####################e#######################
               rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt2
               rm $outdir/"$organis_name"-MegaSSR_Results/$organis_name.RESULTS_OF_MICROSATELLITE_SEARCH.txt
+              rm $outdir/$sequence_acc.gff
 
+                     now13="$(date)"
+                     
+                     printf "\t $now13 \tMegaSSR Done, The results saved in $outdir %s\n"
+              fi
+
+fi
 
        fi
 
@@ -618,6 +723,7 @@ version()
               for i in $FASTA/*.fa
               do
                      name=$(basename $i ".fa")
+                     echo "$name"
                      python3 $Script/primersearch_threads.py $i  $primersearch $primersearchresults $threads
               done
               cp $primersearchresults/results.primersearch $intermediate_File_step_1/primersearch.results
@@ -629,10 +735,13 @@ version()
               printf "\t$now12 \t Drawing SSR alleles started %s\n"
               python3 $Script/plot_gel.py $intermediate_File_step_1/gel.txt2 "             In-silico validation of MegaSSR results"  $max_allele_length $primer_image $sql/insilco_gel.jpg $intermediate_File_step_1/alleles.txt #2>/dev/null #update it
               perl $Script/For_allele.pl  $intermediate_File_step_1/primersearch.results.txt2 $intermediate_File_step_1/$organis_name.primers.forprimersearch >$sql/"SSR primer with alleles.csv"
+              now13="$(date)"
+              printf "\t$now13 \tMegaSSR Done, The results saved in $outdir %s\n"
        
        fi
 
-              mv $sql/* $outdir              
+              mv $sql/* $outdir   
+              rm -rf $USERCH           
               rm -rf $designprimerresults
               rm -rf $designprimer
               rm -rf $gdesignprimerresults
@@ -645,10 +754,13 @@ version()
               rm -rf $plotread
               rm $outdir/"$organis_name"_genomic.fa.fai
               rm $outdir/"$sequence_acc"_genomic.fa
-              rm $outdir/$sequence_acc.gff
               rm -rf $sql
               rm $outdir/misa.ini
               rm $outdir/modified_p3_in.pl
+<<<<<<< Updated upstream
               rm -rf $outdir/$organis_name
               now13="$(date)"
               printf "\t$now13 \tMegaSSR Done, The results saved in ($outdir) %s\n"
+=======
+              rm -rf $outdir/$organis_name
+>>>>>>> Stashed changes

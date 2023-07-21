@@ -22,10 +22,10 @@ while (<SRC>)
   {
   next unless (my ($id,$seq) = /(.*?)\\n(.*)/s);
   $seq =~ s/[\d\s>]//g;#remove digits, spaces, line breaks,...
-   
+    my @split_id = split(/==/, $id);
     print OUT "PRIMER_NUM_RETURN=1\\nPRIMER_SEQUENCE_ID=$id\\nSEQUENCE_TEMPLATE=$seq\\n";
     print OUT "PRIMER_PRODUCT_SIZE_RANGE="""+range+"""\\n";
-    print OUT "SEQUENCE_TARGET=195,100\\n";
+    print OUT "SEQUENCE_TARGET=199,$split_id[5]\\n";
     print OUT "PRIMER_OPT_SIZE="""+opt+"""\\nPRIMER_MIN_SIZE="""+min+"""\\nPRIMER_MAX_SIZE="""+max+"""\\n=\\n";
   };
 };"""

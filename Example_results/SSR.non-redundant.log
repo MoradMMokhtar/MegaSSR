@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 usearch v11.0.667_i86linux32, 4.0Gb RAM (196Gb total), 56 cores
 Started Sun Jul 16 18:07:23 2023
 
@@ -26,3 +27,31 @@ Throughput  678.6 seqs/sec.
 Finished Sun Jul 16 18:07:31 2023
 Elapsed time 00:08
 Max memory 44Mb
+=======
+usearch v11.0.667_i86linux32, 4.0Gb RAM (20.4Gb total), 8 cores
+Started Fri Jul 21 22:09:21 2023
+00:00 76Mb    100.0% DF
+Merge thread data 0 secs
+5148 seqs, 5132 uniques, 5118 singletons (99.7%)
+Min size 1, median 1, max 4, avg 1.00
+00:00 80Mb    100.0% DB
+00:06 102Mb   100.0% 5062 clusters, max size 17, avg 1.0
+00:06 102Mb   100.0% Writing centroids to /home/morad/MegaSSR-main-for-test/MegaSSR-main/Results/new_test_146/USERCH/my_centroids.fa
+00:06 102Mb   100.0% Building MSAs
+6 secs (00:06) 102Mb Result: 5062 clusters, max size 17, avg 1.0
+
+      Seqs  5132
+  Clusters  5062
+  Max size  17
+  Avg size  1.0
+  Min size  1
+Singletons  5013, 97.7% of seqs, 99.0% of clusters
+   Max mem  102Mb
+      Time  6.00s
+Throughput  855.3 seqs/sec.
+
+
+Finished Fri Jul 21 22:09:27 2023
+Elapsed time 00:06
+Max memory 102Mb
+>>>>>>> Stashed changes
