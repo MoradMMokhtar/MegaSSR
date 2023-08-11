@@ -6,7 +6,7 @@ if [ $# -eq 0 ]
 fi
 userpath=$(pwd)
 Script=$userpath/bin/Script
-chmod 775 $Script/usearch11.0.667_i86linux32 #Give execulting permissions for LTRretriever
+chmod 775 $Script/usearch11.0.667_i86linux32 #Give execulting permissions
 eval "$(conda shell.bash hook)"
 ############################################################
 # Set variables                                            #
