@@ -1,4 +1,11 @@
 #!/bin/bash
+#####################################################################################################
+# Created by: Morad M. Mokhtar                                                                      #
+# Emails: morad.mokhtar@ageri.sci.eg or morad.mokhtar@um6p.ma or morad.ageri.e@gmail.com            #
+# This script is not intended for commercial use   
+# Citation: https://doi.org/10.3389/fpls.2023.1219055                                               #
+#####################################################################################################
+
 if [ $# -eq 0 ]
    then
       echo "Parameters -A and -F is required, use [bash MegaSSR.sh -help] for more detalis"
@@ -200,6 +207,8 @@ version()
        ###############################################################
        python3 $Script/changeini_.py $mono  $di $tri $tetra $penta $hexa $compound $outdir
        python3 $Script/changeperl_.py $range $Min  $opt  $max $outdir
+       python3 $Script/changeperl_geneic.py $range $Min  $opt  $max $outdir
+
        cd $FASTA || exit
        sed -i 's/ .*//' $outdir/"$sequence_acc"_genomic.fa
        # Split the files using csplit
@@ -366,7 +375,7 @@ version()
                      sed -i '1s/^/\tProcess Id\tSequence Id\tRepeat number\tRepeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\n/' $sql/$organis_name.genomic.fa.misa.txt
                      sed -i '1s/^/\tProcess Id\tSequence Id\tRepeat number\tRepeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\n/' $sql/$organis_name.Accept_Intergenic_SSR.txt
                      sed -i '1s/^/\tProcess Id\tRepeat Type\tTotal No. of present\n/' $sql/$organis_name.Distribution_to_different_repeat_type_classes.stat.txt
-                     sed -i '1s/^/\tSequence ID\tProcess Id\tRepeat number\Repeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\tPrimer Start\tPrimer End\tForward Primer\tForward Tm\tForward Size (bp)\tForward GC\tReverse Primer\tReverse Tm\tReverse Size (bp)\tReverse GC\tProduct Size (bp)\t\n/' $sql/$organis_name.interGenic-primers.txt
+                     sed -i '1s/^/\tSequence ID\tProcess Id\tRepeat number\tRepeat Type\tRepeat Sequence\tRepeat Length\tRepeat Start\tRepeat End\tPrimer Start\tPrimer End\tForward Primer\tForward Tm\tForward Size (bp)\tForward GC\tReverse Primer\tReverse Tm\tReverse Size (bp)\tReverse GC\tProduct Size (bp)\t\n/' $sql/$organis_name.interGenic-primers.txt
                      ###########################plots###############################
                                           
                      cut -f2- $outdir/"$organis_name"-MegaSSR_Results/*Distribution_to_different_repeat_type_classes.stat.txt > $plotread/Distribution_to_different_repeat_type_classes.stat.txt
@@ -554,7 +563,7 @@ version()
                             for i in $FASTA/*.fa
                             do
                             name=$(basename $i ".fa")
-                                   python3 $Script/gdesignprimer_threads.py $i  $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl 
+                                   python3 $Script/gdesignprimer_threads.py $i  $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in_genic.pl 
                             done
                      cat $designprimerresults/*.fa >$sql/$organis_name."SSR flanking sequence.fa"
                      cat $gdesignprimerresults/*.fa >>$sql/$organis_name."SSR flanking sequence.fa"
@@ -572,7 +581,7 @@ version()
                      printf "\n\n\t$now101 \tNon-redundant SSR library done%s\n\n"
 
                      ############################primer-design##############################
-                     python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
+                     python3 $Script/gdesignprimer2_threads.py $gdesignprimer $gdesignprimerresults $threads $Script/extractseq-id-start-end-genic.pl $outdir/modified_p3_in_genic.pl $organis_name $Script/modified_p3_out-genic.pl $Script/print-primers-line-genicCCC.pl $intermediate_File_step_1
                                                                       
                      #######prepear genic primers table with repeat and gene info (only desinged primers)#########                           
 
@@ -710,4 +719,5 @@ fi
               rm -rf $sql
               rm $outdir/misa.ini
               rm $outdir/modified_p3_in.pl
+              rm $outdir/modified_p3_in_genic.pl
               rm -rf $outdir/$organis_name
