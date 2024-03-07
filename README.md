@@ -151,3 +151,6 @@ We have collected the main output files in the Results folder in the main output
 #
 ### For more information and help
 To report bugs and give us suggestions, you can open an [issue](https://github.com/MoradMMokhtar/MegaSSR) on the github repository. Feel free also to contact us by e-mail ([morad.mokhtar@ageri.sci.eg](morad.mokhtar@ageri.sci.eg)); ([achraf.elallali@um6p.ma](achraf.elallali@um6p.ma)).
+#
+### Citation
+Morad M. Mokhtar, Alsamman M. Alsamman and Achraf El Allali (2023). MegaSSR: A webserver for large scale SSR identification, classification, and marker development. Frontiers in Plant Science, 14, [https://doi.org/10.3389/fpls.2023.1219055]
